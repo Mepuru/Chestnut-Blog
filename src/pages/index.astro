@@ -9,13 +9,13 @@ const posts = (await getCollection('blog'))
 ---
 
 <BaseLayout>
-  <section style="margin-bottom: 3rem;">
-    <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem;">你好，我是栗かな</h1>
-    <p style="color: var(--muted);">欢迎来到我的小站，这里记录着我的所思所想。</p>
+  <section class="hero">
+    <h1>你好，我是栗かな</h1>
+    <p>欢迎来到我的小站，这里记录着我的所思所想。</p>
   </section>
 
   <section>
-    <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--muted);">最新文章</h2>
+    <h2 class="section-title">最新文章</h2>
     <ul class="post-list">
       {posts.slice(0, 5).map((post) => (
         <PostCard
