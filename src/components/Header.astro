@@ -1,0 +1,17 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="site-title">栗かな</a>
+    <nav>
+      <a href="/" class:list={[{ active: currentPath === '/' }]}>首页</a>
+      <a href="/blog" class:list={[{ active: currentPath.startsWith('/blog') }]}>文章</a>
+      <a href="/about" class:list={[{ active: currentPath === '/about' }]}>关于</a>
+      <button class="search-trigger" onclick="document.getElementById('search-modal').classList.add('open'); document.getElementById('search-input').focus();">
+        搜索
+      </button>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout>
+  <section style="margin-bottom: 3rem;">
+    <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem;">你好，我是栗かな</h1>
+    <p style="color: var(--muted);">欢迎来到我的小站，这里记录着我的所思所想。</p>
+  </section>
+
+  <section>
+    <h2 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--muted);">最新文章</h2>
+    <ul class="post-list">
+      {posts.slice(0, 5).map((post) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          slug={post.id}
+          tags={post.data.tags}
+        />
+      ))}
+    </ul>
+    {posts.length > 5 && (
+      <a href="/blog" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">
+        查看全部文章 &rarr;
+      </a>
+    )}
+  </section>
+</BaseLayout>
