@@ -1,38 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const about = await getEntry('pages', 'about');
+const { Content } = await render(about);
 ---
 
-<BaseLayout title="关于 - 栗かな的博客">
+<BaseLayout title="关于 - 栗かな的博客" wide>
   <div class="page-header">
-    <h1>关于我</h1>
+    <h1>{about.data.title}</h1>
   </div>
   <div class="about-content prose">
-    <h2>About My Name</h2>
-    <p>
-      如果你能看到这个页面大概是已经对我有了一些了解！
-    </p>
-    <p>
-      我的网名是<strong>栗かな</strong>，读法是<strong>KuriKana</strong>！
-    </p>
-    <p>
-      经常有人问我这个名字是怎么取的，其实也没有什么特别的由来。我以前很喜欢看一部番叫《理科生坠入情网故尝试证明》，有一个女角色叫<strong>奏（Kanade）</strong>。我觉得这个名字很好我就直接借过来啦，但是我只取了<strong>Kana</strong>的读音。至于<strong>栗</strong>其实是偶然间我照镜子发现我的头发有一点栗子色，所以就组合起来变成<strong>栗かな</strong>了！
-    </p>
-
-    <h2>About This Webpage</h2>
-    <p>
-      这个网页历经多次重构，迁移。最早的时候是由<strong>WordPress</strong>驱动的，后面因为性能问题转为<strong>Typecho</strong>。后面也尝试过国产的<strong>Halo</strong>，但是<strong>Halo</strong>后面商业化进入付费时代之后，我就不再使用了。就转为<strong>Hexo</strong>了，我主要在这篇文章上发表一些自己的看法，遇到的各种问题。现在正在用<strong>Astro</strong>运行！
-    </p>
-
-    <h2>About Me</h2>
-    <p>
-      在大学学的<strong>日语</strong>专业，上学期间去日本交换了半年，在日本修读的是<strong>国際コミュニケーションコース</strong>。有<strong>JLPT N1</strong>证书，专四优秀，以及各种日语类比赛的省奖校奖之类的，也拿到过学习奖学金。
-    </p>
-    <p>
-      对计算机小有了解，最常用的语言是<strong>Python</strong>，有一张软著的证书！也研究过一段时间的单片机，但是很浅显，<strong>AT89C51</strong>和<strong>Esp32s3</strong>。<strong>Esp32s3</strong>主要使用<strong>MicroPython</strong>进行开发！但是不会驱动之类的编写，也不太会用<strong>C语言</strong>。
-    </p>
-    <p>
-      写过<strong>QQ机器人</strong>的插件！当过Minecraft商业服的<strong>运维</strong>！在VRChat也叫<strong>KuriKana</strong>，欢迎来找我玩哦！
-    </p>
-    <p><strong>感谢你读到这里！</strong></p>
+    <Content />
   </div>
 </BaseLayout>
