@@ -16,12 +16,19 @@ const dateStr = pubDate.toLocaleDateString('zh-CN', {
 });
 ---
 
-<li class="post-item">
-  <time class="post-date">{dateStr}</time>
-  <a href={`/blog/${slug}`} class="post-link">{title}</a>
-  {tags.length > 0 && (
-    <div class="tags">
-      {tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
+<article class="post-card">
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <time>{dateStr}</time>
+      {tags.length > 0 && (
+        <div class="tags">
+          {tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
     </div>
-  )}
-</li>
+    <h3 class="post-card-title">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </h3>
+    <p class="post-card-desc">{description}</p>
+  </div>
+</article>

@@ -9,15 +9,15 @@ const posts = (await getCollection('blog'))
 ---
 
 <BaseLayout>
-  <section class="hero">
-    <h1>你好，我是栗かな</h1>
-    <p>欢迎来到我的小站，这里记录着我的所思所想。</p>
-  </section>
+  <div class="hero">
+    <h1 class="hero-title">你好，我是栗かな</h1>
+    <p class="hero-sub">欢迎来到我的小站，这里记录着我的所思所想。</p>
+  </div>
 
   <section>
     <h2 class="section-title">最新文章</h2>
-    <ul class="post-list">
-      {posts.slice(0, 5).map((post) => (
+    <div class="post-grid">
+      {posts.slice(0, 6).map((post) => (
         <PostCard
           title={post.data.title}
           description={post.data.description}
@@ -26,11 +26,11 @@ const posts = (await getCollection('blog'))
           tags={post.data.tags}
         />
       ))}
-    </ul>
-    {posts.length > 5 && (
-      <a href="/blog" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">
-        查看全部文章 &rarr;
-      </a>
+    </div>
+    {posts.length > 6 && (
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="/blog" class="view-all-link">查看全部文章 &rarr;</a>
+      </div>
     )}
   </section>
 </BaseLayout>

@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const allTags = posts.flatMap((p) => p.data.tags);
+const tagCounts = allTags.reduce((acc, tag) => {
+  acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+---
+
+<aside class="sidebar">
+  <div class="profile-card">
+    <img src="/icon.png" alt="栗かな" class="profile-avatar" />
+    <h3 class="profile-name">栗かな</h3>
+    <p class="profile-bio">日语专业 / VRChat玩家 / 技术探索中</p>
+    <div class="profile-stats">
+      <div class="stat">
+        <span class="stat-num">{posts.length}</span>
+        <span class="stat-label">文章</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">{sortedTags.length}</span>
+        <span class="stat-label">标签</span>
+      </div>
+    </div>
+  </div>
+
+  {sortedTags.length > 0 && (
+    <div class="sidebar-section">
+      <h4 class="sidebar-title">标签</h4>
+      <div class="tag-cloud">
+        {sortedTags.map(([tag, count]) => (
+          <a href={`/blog?tag=${encodeURIComponent(tag)}`} class="tag-item">
+            {tag}
+            <span class="tag-count">{count}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <div class="sidebar-section">
+    <h4 class="sidebar-title">链接</h4>
+    <div class="link-list">
+      <a href="https://github.com/Mepuru" target="_blank" rel="noopener" class="link-item">
+        GitHub
+      </a>
+      <a href="/about" class="link-item">
+        关于我
+      </a>
+    </div>
+  </div>
+</aside>

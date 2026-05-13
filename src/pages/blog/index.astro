@@ -9,10 +9,8 @@ const posts = (await getCollection('blog'))
 ---
 
 <BaseLayout title="文章 - 栗かな的博客">
-  <div class="page-header">
-    <h1>所有文章</h1>
-  </div>
-  <ul class="post-list">
+  <h1 class="page-title">所有文章</h1>
+  <div class="post-grid">
     {posts.map((post) => (
       <PostCard
         title={post.data.title}
@@ -22,5 +20,5 @@ const posts = (await getCollection('blog'))
         tags={post.data.tags}
       />
     ))}
-  </ul>
+  </div>
 </BaseLayout>
