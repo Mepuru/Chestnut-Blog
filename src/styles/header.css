@@ -15,9 +15,9 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 64px;
   padding: 0 1.5rem;
+  gap: 1.5rem;
 }
 
 .site-title {
@@ -25,6 +25,7 @@
   font-weight: 700;
   color: var(--fg);
   transition: color 0.2s;
+  flex-shrink: 0;
 }
 
 .site-title:hover {
@@ -32,13 +33,13 @@
   opacity: 1;
 }
 
-nav {
+.nav-links {
   display: flex;
   gap: 1.25rem;
   align-items: center;
 }
 
-nav a {
+.nav-links a {
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 500;
@@ -46,7 +47,7 @@ nav a {
   position: relative;
 }
 
-nav a::after {
+.nav-links a::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -58,13 +59,37 @@ nav a::after {
   transition: width 0.25s ease;
 }
 
-nav a:hover,
-nav a.active {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--accent);
   opacity: 1;
 }
 
-nav a:hover::after,
-nav a.active::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
   width: 100%;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+/* Responsive */
+@media (max-width: 425px) {
+  .header-inner {
+    padding: 0 0.75rem;
+    height: 56px;
+    gap: 0.75rem;
+  }
+
+  .site-title {
+    font-size: 1.1rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
 }

@@ -6,11 +6,17 @@ const currentPath = Astro.url.pathname;
 <header class="site-header">
   <div class="container header-inner">
     <a href="/" class="site-title">栗かな</a>
-    <nav>
+    <nav class="nav-links">
       <a href="/" class:list={[{ active: currentPath === '/' }]}>首页</a>
       <a href="/blog" class:list={[{ active: currentPath.startsWith('/blog') }]}>文章</a>
       <a href="/about" class:list={[{ active: currentPath === '/about' }]}>关于</a>
-      <button class="search-trigger" onclick="document.getElementById('search-modal').classList.add('open'); document.getElementById('search-input').focus();">
+    </nav>
+    <div class="nav-right">
+      <button class="search-trigger" onclick="document.getElementById('search-modal').classList.add('open'); document.getElementById('search-input').focus();" aria-label="搜索">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
         搜索
       </button>
       <div class="theme-switcher">
@@ -26,7 +32,7 @@ const currentPath = Astro.url.pathname;
           ))}
         </div>
       </div>
-    </nav>
+    </div>
   </div>
 </header>
 

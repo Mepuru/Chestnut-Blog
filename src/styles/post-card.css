@@ -89,3 +89,22 @@
   background: var(--accent);
   color: #fff;
 }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-card-body {
+    padding: 1rem;
+  }
+
+  .post-card-title {
+    font-size: 0.95rem;
+  }
+
+  .post-card-desc {
+    font-size: 0.8rem;
+  }
+}
