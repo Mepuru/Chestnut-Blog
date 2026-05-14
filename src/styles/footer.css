@@ -1,0 +1,21 @@
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-icp a {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.footer-icp a:hover {
+  color: var(--accent);
+}

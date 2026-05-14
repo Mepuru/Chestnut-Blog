@@ -1,0 +1,70 @@
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--header-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 1.5rem;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--fg);
+  transition: color 0.2s;
+}
+
+.site-title:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+nav a {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: width 0.25s ease;
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--accent);
+  opacity: 1;
+}
+
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
