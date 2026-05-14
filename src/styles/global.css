@@ -1,21 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
 
-:root {
-  --bg: #fef6f9;
+[data-theme="sakura"] {
+  --bg: #fef8fa;
   --bg-secondary: #fff0f5;
-  --fg: #4a3f4a;
-  --accent: #e8739e;
-  --accent-hover: #d4608a;
-  --accent-light: #fce4f0;
-  --accent-glow: rgba(232, 115, 158, 0.15);
-  --border: #f0dce6;
-  --muted: #a89ba8;
+  --fg: #4a3848;
+  --accent: #d06090;
+  --accent-hover: #c05080;
+  --accent-light: rgba(208, 96, 144, 0.10);
+  --accent-glow: rgba(208, 96, 144, 0.08);
+  --border: #f0d8e4;
+  --muted: #a898a4;
   --card-bg: #ffffff;
-  --code-bg: #2d2136;
-  --header-bg: rgba(254, 246, 249, 0.85);
+  --code-bg: #2d2030;
+  --header-bg: rgba(254, 248, 250, 0.9);
   --search-bg: #ffffff;
-  --shadow-sm: 0 2px 8px rgba(232, 115, 158, 0.08);
-  --shadow-md: 0 4px 20px rgba(232, 115, 158, 0.12);
+  --shadow-sm: 0 2px 8px rgba(208, 96, 144, 0.06);
+  --shadow-md: 0 4px 20px rgba(208, 96, 144, 0.10);
+  --gradient-1: rgba(208, 96, 144, 0.10);
+  --gradient-2: rgba(160, 120, 200, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+[data-theme="starry"] {
+  --bg: #1a1a2e;
+  --bg-secondary: #16213e;
+  --fg: #e0e0e8;
+  --accent: #7b8cde;
+  --accent-hover: #6a7bc8;
+  --accent-light: rgba(123, 140, 222, 0.15);
+  --accent-glow: rgba(123, 140, 222, 0.10);
+  --border: #2a2a4a;
+  --muted: #8888a8;
+  --card-bg: #222244;
+  --code-bg: #0d0d1a;
+  --header-bg: rgba(26, 26, 46, 0.9);
+  --search-bg: #222244;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --gradient-1: rgba(123, 140, 222, 0.12);
+  --gradient-2: rgba(100, 200, 180, 0.08);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -27,12 +52,18 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: var(--accent-light);
+  color: var(--fg);
+}
+
 html {
   font-family: 'Zen Maru Gothic', 'Noto Sans SC', 'Hiragino Sans', 'Microsoft YaHei', sans-serif;
   color: var(--fg);
   background: var(--bg);
   line-height: 1.8;
   scroll-behavior: smooth;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -40,9 +71,10 @@ body {
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(232, 115, 158, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(167, 139, 250, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, var(--gradient-1) 0%, transparent 50%),
+    linear-gradient(315deg, var(--gradient-2) 0%, transparent 50%),
     var(--bg);
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 a {
@@ -71,6 +103,10 @@ img {
   align-items: start;
 }
 
+.layout-wrapper.wide {
+  grid-template-columns: 1fr;
+}
+
 .main-content {
   min-width: 0;
 }
@@ -84,6 +120,7 @@ img {
   z-index: 100;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-inner {
@@ -175,7 +212,7 @@ nav a.active::after {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .post-card:hover {
@@ -276,6 +313,7 @@ nav a.active::after {
   border-radius: var(--radius-md);
   padding: 1.5rem;
   text-align: center;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profile-avatar {
@@ -329,6 +367,7 @@ nav a.active::after {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 1.25rem;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-title {
@@ -512,6 +551,77 @@ nav a.active::after {
   font-weight: 600;
 }
 
+/* Theme Switcher */
+.theme-switcher {
+  position: relative;
+}
+
+.theme-trigger {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.theme-trigger:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.theme-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  box-shadow: var(--shadow-md);
+  min-width: 100px;
+  z-index: 150;
+}
+
+.theme-menu.open {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.theme-option {
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--fg);
+  font-size: 0.85rem;
+  text-align: left;
+  transition: background 0.15s;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.theme-option:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.theme-option[data-theme="sakura"] {
+  color: #d06090;
+}
+
+.theme-option[data-theme="starry"] {
+  color: #7986cb;
+}
+
 /* Search */
 .search-trigger {
   background: none;
@@ -539,7 +649,7 @@ nav a.active::after {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(74, 63, 74, 0.3);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   justify-content: center;
@@ -557,7 +667,7 @@ nav a.active::after {
   max-width: 560px;
   max-height: 60vh;
   overflow: hidden;
-  box-shadow: 0 24px 80px rgba(232, 115, 158, 0.2);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
@@ -620,6 +730,7 @@ nav a.active::after {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  transition: border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-icp a {

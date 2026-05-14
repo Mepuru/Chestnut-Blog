@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { estimateReadingTime } from '../../utils/reading-time';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const allTags = posts.flatMap((p) => p.data.tags);
+  const uniqueTags = [...new Set(allTags)];
+
+  return uniqueTags.map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft && p.data.tags.includes(tag))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title={`${tag} - 栗かな的博客`}>
+  <a href="/blog" class="back-link">&larr; 所有文章</a>
+  <h1 class="page-title">标签：{tag}</h1>
+  <p class="tag-desc">共 {posts.length} 篇文章</p>
+  <div class="post-grid">
+    {posts.map((post) => (
+      <PostCard
+        title={post.data.title}
+        description={post.data.description}
+        pubDate={post.data.pubDate}
+        slug={post.id}
+        tags={post.data.tags}
+        readingTime={estimateReadingTime(post.body ?? '')}
+      />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-desc {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+</style>

@@ -1,4 +1,5 @@
 ---
+import { themes } from '../utils/themes';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -12,6 +13,42 @@ const currentPath = Astro.url.pathname;
       <button class="search-trigger" onclick="document.getElementById('search-modal').classList.add('open'); document.getElementById('search-input').focus();">
         搜索
       </button>
+      <div class="theme-switcher">
+        <button class="theme-trigger" id="theme-trigger" aria-label="切换主题">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </button>
+        <div class="theme-menu" id="theme-menu">
+          {themes.map(theme => (
+            <button class="theme-option" data-theme={theme.id}>{theme.name}</button>
+          ))}
+        </div>
+      </div>
     </nav>
   </div>
 </header>
+
+<script is:inline>
+  const trigger = document.getElementById('theme-trigger');
+  const menu = document.getElementById('theme-menu');
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', () => {
+    menu.classList.remove('open');
+  });
+
+  menu.addEventListener('click', (e) => {
+    const btn = e.target.closest('.theme-option');
+    if (!btn) return;
+    const theme = btn.dataset.theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    menu.classList.remove('open');
+  });
+</script>
