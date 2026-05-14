@@ -52,7 +52,7 @@ npm run preview
 ```
 src/
 ├── components/          # 组件
-│   ├── Header.astro     # 顶部导航 + 主题切换
+│   ├── Header.astro     # 顶部导航（窄屏自动隐藏）
 │   ├── Footer.astro     # 页脚
 │   ├── Search.astro     # 搜索弹窗
 │   ├── Sidebar.astro    # 侧边栏（标签云）
