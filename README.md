@@ -19,7 +19,8 @@
 
 - **Astro 5.x** - 内容驱动的静态站点框架
 - **Pagefind 搜索** - 构建时自动生成全文索引，零 JS 依赖
-- **Markdown 增强** - Shiki 代码高亮，统一的 Markdown 处理
+- **多主题切换** - 樱花/星空两套主题，支持 localStorage 记忆
+- **标签筛选** - 点击标签查看相关文章
 - **响应式设计** - 适配桌面和移动端
 - **EdgeOne 部署** - 国内 CDN 加速，访问速度快
 
@@ -51,17 +52,37 @@ npm run preview
 ```
 src/
 ├── components/          # 组件
-│   ├── Header.astro     # 顶部导航
+│   ├── Header.astro     # 顶部导航 + 主题切换
 │   ├── Footer.astro     # 页脚
 │   ├── Search.astro     # 搜索弹窗
+│   ├── Sidebar.astro    # 侧边栏（标签云）
 │   └── PostCard.astro   # 文章卡片
-├── content/blog/        # Markdown 文章
-├── layouts/             # 布局模板
-├── pages/               # 页面路由
-└── styles/              # 全局样式
-public/
-├── images/              # 文章图片资源
-└── icon.png             # 博客图标
+├── content/
+│   ├── blog/            # Markdown 文章
+│   └── pages/           # 独立页面（关于等）
+├── layouts/
+│   ├── BaseLayout.astro # 基础布局
+│   └── PostLayout.astro # 文章布局
+├── pages/
+│   ├── index.astro      # 首页
+│   ├── blog/            # 文章列表 + 详情
+│   ├── tags/[tag].astro # 标签筛选页
+│   └── about.astro      # 关于页
+├── styles/              # 样式（按组件拆分）
+│   ├── base.css         # 主题变量、基础样式
+│   ├── header.css       # 头部导航
+│   ├── theme-switcher.css
+│   ├── post-card.css    # 文章卡片
+│   ├── prose.css        # 文章内容排版
+│   ├── sidebar.css      # 侧边栏
+│   ├── search.css       # 搜索
+│   ├── footer.css       # 底部
+│   └── pages.css        # 关于、404 页
+├── utils/
+│   ├── themes.ts        # 主题配置
+│   └── reading-time.ts  # 阅读时间估算
+├── types.ts             # 类型定义
+└── content.config.ts    # 内容 schema
 ```
 
 ## 写文章
@@ -74,12 +95,19 @@ title: 文章标题
 description: 文章简介
 pubDate: 2026-05-13
 tags: [标签1, 标签2]
+draft: false
 ---
 
 正文内容...
 ```
 
-图片放在 `public/images/` 对应目录下，引用路径为 `/images/xxx/image.png`。
+- `draft: true` 可标记为草稿，构建时会自动过滤
+- 图片放在 `public/images/` 对应目录下，引用路径为 `/images/xxx/image.png`
+
+## 添加新主题
+
+1. 在 `src/utils/themes.ts` 中添加主题配置
+2. 在 `src/styles/base.css` 中添加 `[data-theme="xxx"]` 变量块
 
 ## 联系方式
 
