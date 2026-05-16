@@ -1,0 +1,145 @@
+/* ============================================
+   系列卡片样式
+   ============================================ */
+
+.series-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.series-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-light);
+}
+
+/* 对齐方式 */
+.series-card.align-left {
+  margin-right: 15%;
+}
+
+.series-card.align-right {
+  margin-left: 15%;
+}
+
+/* 卡片头部 */
+.card-header {
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin: 0 0 0.5rem 0;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0 0 1rem 0;
+}
+
+.card-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stats-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stats-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* 分隔线 */
+.card-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 1.5rem;
+}
+
+/* 最近更新 */
+.card-recent {
+  margin-bottom: 2rem;
+}
+
+.recent-title {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem 0;
+}
+
+.recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recent-item {
+  font-size: 0.9rem;
+  color: var(--fg);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.recent-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* 链接按钮 */
+.card-link {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.card-link:hover {
+  color: var(--accent-hover);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .series-card {
+    padding: 1.5rem;
+  }
+
+  .series-card.align-left,
+  .series-card.align-right {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+
+  .stats-number {
+    font-size: 1.5rem;
+  }
+}

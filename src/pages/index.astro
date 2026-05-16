@@ -1,33 +1,59 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/PostCard.astro';
+import Hero from '../components/home/Hero.astro';
+import SeriesSection from '../components/home/SeriesSection.astro';
+import SeriesCard from '../components/home/SeriesCard.astro';
+import { seriesConfig } from '../config/series';
 import { getCollection } from 'astro:content';
-import { estimateReadingTime } from '../utils/reading-time';
+import '../styles/home.css';
 
-const posts = (await getCollection('blog'))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// 自动获取所有系列的数据
+const seriesData = await Promise.all(
+  seriesConfig.map(async (series) => {
+    try {
+      const collection = await getCollection(series.collection);
+      const sorted = collection
+        .filter((item) => !item.data.draft)
+        .sort((a, b) => {
+          // 博客按日期倒序，教案按周次倒序
+          if (series.collection === 'blog') {
+            return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+          }
+          return b.data.week - a.data.week;
+        });
+
+      return {
+        ...series,
+        count: sorted.length,
+        recent: sorted.slice(0, 3),
+      };
+    } catch {
+      return {
+        ...series,
+        count: 0,
+        recent: [],
+      };
+    }
+  })
+);
 ---
 
-<BaseLayout>
-  <section>
-    <h2 class="section-title">最新文章</h2>
-    <div class="post-grid">
-      {posts.slice(0, 10).map((post) => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDate}
-          slug={post.id}
-          tags={post.data.tags}
-          readingTime={estimateReadingTime(post.body ?? '')}
+<BaseLayout title="栗かな" description="记录生活与技术的个人博客">
+  <div class="home-page">
+    <Hero />
+    
+    <SeriesSection title="我的系列">
+      {seriesData.map((series) => (
+        <SeriesCard
+          title={series.title}
+          description={series.description}
+          count={series.count}
+          countLabel={series.countLabel}
+          recent={series.recent}
+          link={series.link}
+          align={series.align}
         />
       ))}
-    </div>
-    {posts.length > 10 && (
-      <div style="text-align: center; margin-top: 1.5rem;">
-        <a href="/blog" class="view-all-link">查看全部文章 &rarr;</a>
-      </div>
-    )}
-  </section>
+    </SeriesSection>
+  </div>
 </BaseLayout>

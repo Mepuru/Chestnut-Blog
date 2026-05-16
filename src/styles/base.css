@@ -48,6 +48,30 @@
   --theme-label: #7986cb;
 }
 
+[data-theme="cream"] {
+  --bg: #FBF9F6;
+  --bg-secondary: #F5F2EE;
+  --fg: #3A3632;
+  --accent: #A0896C;
+  --accent-hover: #8B7558;
+  --accent-light: rgba(160, 137, 108, 0.1);
+  --accent-glow: rgba(160, 137, 108, 0.05);
+  --border: #EDE8E0;
+  --muted: #B0A89C;
+  --card-bg: #FFFFFF;
+  --code-bg: #2C2825;
+  --header-bg: rgba(251, 249, 246, 0.9);
+  --search-bg: #FFFFFF;
+  --shadow-sm: 0 2px 8px rgba(58, 54, 50, 0.04);
+  --shadow-md: 0 4px 20px rgba(58, 54, 50, 0.08);
+  --gradient-1: rgba(160, 137, 108, 0.06);
+  --gradient-2: rgba(160, 137, 108, 0.04);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --theme-label: #A0896C;
+}
+
 * {
   margin: 0;
   padding: 0;

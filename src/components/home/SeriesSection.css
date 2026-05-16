@@ -1,0 +1,46 @@
+/* ============================================
+   系列展示区样式
+   ============================================ */
+
+.series-section {
+  padding: 2rem 0;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.05em;
+}
+
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+}
+
+.series-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .series-section {
+    padding: 1.5rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .series-list {
+    gap: 3rem;
+  }
+}
