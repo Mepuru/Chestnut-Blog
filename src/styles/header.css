@@ -284,13 +284,16 @@
 .mobile-theme-switcher {
   display: flex;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .mobile-theme-switcher .theme-option {
+  flex: 1;
   padding: 0.75rem 1rem;
   background: var(--accent-light);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
+  text-align: center;
 }
 
 .mobile-theme-switcher .theme-option:hover {
