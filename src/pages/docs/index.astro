@@ -1,25 +1,7 @@
 ---
-import { getCollection, render } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
-
-const docs = (await getCollection('docs'))
-  .filter((doc) => !doc.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-const firstDoc = docs[0];
-
-if (!firstDoc) {
-  return Astro.redirect('/404');
-}
-
-const { Content, headings } = await render(firstDoc);
 ---
 
-<DocsLayout
-  title={firstDoc.data.title}
-  date={firstDoc.data.date}
-  currentSlug={firstDoc.id}
-  headings={headings}
->
-  <Content />
+<DocsLayout title="文档" currentSlug={undefined} headings={[]}>
+  <!-- 无默认文档，用户从左侧目录选择 -->
 </DocsLayout>

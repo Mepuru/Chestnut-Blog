@@ -7,7 +7,7 @@ import { formatDate } from '../utils/date';
 interface Props {
   title: string;
   description?: string;
-  date: Date;
+  date?: Date;
   currentSlug?: string;
   headings?: Array<{
     depth: number;
@@ -18,25 +18,32 @@ interface Props {
 
 const { title, description, date, currentSlug, headings = [] } = Astro.props;
 
-const dateStr = formatDate(date);
+const dateStr = date ? formatDate(date) : '';
+const hasDoc = !!currentSlug;
 ---
 
-<BaseLayout title={`${title} - 文档`} description={description}>
+  <BaseLayout title={`${title} - 文档`} description={description}>
   <div class="docs-page">
     <DocsSidebar currentSlug={currentSlug} />
 
     <main class="docs-main">
-      <article class="lesson">
-        <header class="lesson-header">
-          <div class="lesson-meta">
-            <time class="lesson-date">{dateStr}</time>
+      {hasDoc ? (
+        <article class="lesson">
+          <header class="lesson-header">
+            <div class="lesson-meta">
+              <time class="lesson-date">{dateStr}</time>
+            </div>
+            <h1 class="lesson-title">{title}</h1>
+          </header>
+          <div class="lesson-content prose">
+            <slot />
           </div>
-          <h1 class="lesson-title">{title}</h1>
-        </header>
-        <div class="lesson-content prose">
-          <slot />
+        </article>
+      ) : (
+        <div class="lesson lesson-empty">
+          <p>请从左侧目录选择一篇文档</p>
         </div>
-      </article>
+      )}
     </main>
 
     <aside class="toc-wrapper" id="toc-wrapper">
@@ -87,6 +94,16 @@ const dateStr = formatDate(date);
   .lesson {
     width: 100%;
     max-width: 800px;
+  }
+
+  .lesson-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    color: var(--muted);
+    font-size: 1.05rem;
+    user-select: none;
   }
 
   .lesson-header {
