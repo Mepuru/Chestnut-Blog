@@ -7,9 +7,14 @@ interface Props {
 
 const { currentSlug } = Astro.props;
 
-const docs = (await getCollection('docs'))
-  .filter((doc) => !doc.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+let docs: Awaited<ReturnType<typeof getCollection<'docs'>>> = [];
+try {
+  docs = (await getCollection('docs'))
+    .filter((doc) => !doc.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+} catch {
+  docs = [];
+}
 
 // 按 category 分组
 const groups = new Map<string, typeof docs>();

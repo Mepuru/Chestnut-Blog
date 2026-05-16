@@ -4,9 +4,14 @@ import PostCard from '../../components/blog/PostCard.astro';
 import { getCollection } from 'astro:content';
 import { estimateReadingTime } from '../../utils/reading-time';
 
-const posts = (await getCollection('blog'))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+let posts: Awaited<ReturnType<typeof getCollection<'blog'>>> = [];
+try {
+  posts = (await getCollection('blog'))
+    .filter((p) => !p.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+} catch {
+  posts = [];
+}
 ---
 
 <BaseLayout title="文章 - 栗かな的博客" sidebar={true}>

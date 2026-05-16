@@ -17,9 +17,14 @@ type Props = Awaited<ReturnType<typeof getCollection<'docs'>>>[number];
 const doc = Astro.props;
 const { Content, headings } = await render(doc);
 
-const allDocs = (await getCollection('docs'))
-  .filter((d) => !d.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+let allDocs: typeof doc[] = [];
+try {
+  allDocs = (await getCollection('docs'))
+    .filter((d) => !d.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+} catch {
+  allDocs = [];
+}
 
 const currentIndex = allDocs.findIndex((d) => d.id === doc.id);
 const prev = currentIndex > 0 ? allDocs[currentIndex - 1] : null;

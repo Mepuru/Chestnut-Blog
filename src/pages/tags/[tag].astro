@@ -17,9 +17,14 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 
-const posts = (await getCollection('blog'))
-  .filter((p) => !p.data.draft && p.data.tags.includes(tag))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+let posts: Awaited<ReturnType<typeof getCollection<'blog'>>> = [];
+try {
+  posts = (await getCollection('blog'))
+    .filter((p) => !p.data.draft && p.data.tags.includes(tag))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+} catch {
+  posts = [];
+}
 ---
 
 <BaseLayout title={`${tag} - 栗かな的博客`} sidebar={true}>
