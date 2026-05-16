@@ -9,6 +9,20 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
+<style is:global>
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <BaseLayout title="文章 - 栗かな的博客" sidebar={true}>
   <h1 class="page-title">所有文章</h1>
   <div class="post-grid">

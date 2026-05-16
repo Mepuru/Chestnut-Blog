@@ -1,10 +1,4 @@
-/* Post card grid */
-.post-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
+/* Post card styles */
 .post-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -92,10 +86,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .post-grid {
-    grid-template-columns: 1fr;
-  }
-
   .post-card-body {
     padding: 1rem;
   }
