@@ -40,20 +40,20 @@ const dateStr = date.toLocaleDateString('zh-CN', {
           <slot />
         </div>
       </article>
-
-      {headings.length > 0 && <TOC headings={headings} />}
     </main>
+
+    {headings.length > 0 && <TOC headings={headings} />}
   </div>
 </BaseLayout>
 
 <style>
   .lessons-page {
-    display: flex;
+    display: grid;
+    grid-template-columns: 260px 1fr 220px;
     min-height: calc(100vh - 64px);
   }
 
   .lessons-main {
-    flex: 1;
     min-width: 0;
     display: flex;
     justify-content: center;
@@ -90,9 +90,17 @@ const dateStr = date.toLocaleDateString('zh-CN', {
     line-height: 1.9;
   }
 
+  /* 小屏幕时隐藏 TOC */
+  @media (max-width: 1200px) {
+    .lessons-page {
+      grid-template-columns: 260px 1fr;
+    }
+  }
+
+  /* 手机端隐藏侧边栏 */
   @media (max-width: 768px) {
     .lessons-page {
-      flex-direction: column;
+      grid-template-columns: 1fr;
     }
 
     .lessons-main {

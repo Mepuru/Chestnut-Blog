@@ -12,13 +12,14 @@ if (!firstLesson) {
   return Astro.redirect('/404');
 }
 
-const { Content } = await render(firstLesson);
+const { Content, headings } = await render(firstLesson);
 ---
 
 <LessonLayout
   title={firstLesson.data.title}
   date={firstLesson.data.date}
   currentSlug={firstLesson.id}
+  headings={headings}
 >
   <Content />
 </LessonLayout>

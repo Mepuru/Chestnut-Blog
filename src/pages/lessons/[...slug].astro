@@ -13,13 +13,14 @@ export async function getStaticPaths() {
 type Props = Awaited<ReturnType<typeof getCollection<'lessons'>>>[number];
 
 const lesson = Astro.props;
-const { Content } = await render(lesson);
+const { Content, headings } = await render(lesson);
 ---
 
 <LessonLayout
   title={lesson.data.title}
   date={lesson.data.date}
   currentSlug={lesson.id}
+  headings={headings}
 >
   <Content />
 </LessonLayout>
