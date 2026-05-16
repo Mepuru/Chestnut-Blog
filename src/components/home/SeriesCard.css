@@ -143,3 +143,10 @@
     font-size: 1.5rem;
   }
 }
+
+/* 电脑端横向布局 */
+@media (min-width: 769px) {
+  .series-card {
+    flex: 1;
+  }
+}

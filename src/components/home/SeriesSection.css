@@ -33,8 +33,14 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+}
+
+/* 电脑端横向布局 */
+@media (min-width: 769px) {
+  .series-list {
+    flex-direction: row;
+    gap: 2rem;
+  }
 }
 
 /* 响应式 */
