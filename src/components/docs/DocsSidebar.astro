@@ -90,10 +90,10 @@ const sortedCategories = [...groups.keys()].sort();
 <style>
   .docs-sidebar {
     position: fixed;
-    top: 64px;
+    top: var(--header-height);
     left: 0;
-    width: 260px;
-    height: calc(100vh - 64px);
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
     overflow-y: auto;
     background: var(--bg);
     border-right: 1px solid var(--border);

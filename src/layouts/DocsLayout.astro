@@ -101,12 +101,12 @@ const emptyText = siteConfig.docs.emptyTexts[Math.floor(Math.random() * siteConf
   }
 
   .docs-page {
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - var(--header-height));
   }
 
   .docs-main {
-    margin-left: 260px;
-    margin-right: 200px;
+    margin-left: var(--sidebar-width);
+    margin-right: var(--toc-width);
     padding: 2rem 3rem 2rem 1.5rem;
     min-width: 0;
   }
@@ -202,7 +202,7 @@ const emptyText = siteConfig.docs.emptyTexts[Math.floor(Math.random() * siteConf
      ============================================ */
   .toc-wrapper {
     position: fixed;
-    top: 88px;
+    top: calc(var(--header-height) + 24px);
     right: 0.25rem;
     width: 200px;
     max-height: calc(100vh - 120px);
