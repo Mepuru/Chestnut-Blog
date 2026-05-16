@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const lessons = (await getCollection('lessons'))
+  .filter((lesson) => !lesson.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<aside class="lesson-sidebar">
+  <div class="sidebar-header">
+    <h3 class="sidebar-title">日语教案</h3>
+    <p class="sidebar-count">共 {lessons.length} 课</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    {lessons.map((lesson) => (
+      <a
+        href={`/lessons/${lesson.id}`}
+        class:list={['sidebar-link', { active: currentSlug === lesson.id }]}
+      >
+        {lesson.data.title}
+      </a>
+    ))}
+  </nav>
+</aside>
+
+<style>
+  .lesson-sidebar {
+    position: sticky;
+    top: 80px;
+    width: 240px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    padding-right: 1.5rem;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin: 0 0 0.25rem 0;
+  }
+
+  .sidebar-count {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sidebar-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+
+  .sidebar-link:hover {
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .sidebar-link.active {
+    color: var(--accent);
+    background: var(--accent-light);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .lesson-sidebar {
+      display: none;
+    }
+  }
+</style>

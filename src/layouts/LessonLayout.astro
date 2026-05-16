@@ -4,11 +4,10 @@ import BaseLayout from './BaseLayout.astro';
 interface Props {
   title: string;
   description?: string;
-  week: number;
   date: Date;
 }
 
-const { title, description, week, date } = Astro.props;
+const { title, description, date } = Astro.props;
 
 const dateStr = date.toLocaleDateString('zh-CN', {
   year: 'numeric',
@@ -22,7 +21,6 @@ const dateStr = date.toLocaleDateString('zh-CN', {
   <article class="lesson">
     <header class="lesson-header">
       <div class="lesson-meta">
-        <span class="lesson-week">第 {week} 周</span>
         <time class="lesson-date">{dateStr}</time>
       </div>
       <h1 class="lesson-title">{title}</h1>

@@ -11,7 +11,6 @@ export const blogSchema = z.object({
 
 export const lessonSchema = z.object({
   title: z.string(),
-  week: z.number(),
   date: z.coerce.date(),
   draft: z.boolean().default(false),
 });
