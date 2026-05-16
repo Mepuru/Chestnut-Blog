@@ -22,7 +22,7 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title={`${tag} - 栗かな的博客`}>
+<BaseLayout title={`${tag} - 栗かな的博客`} sidebar={true}>
   <a href="/blog" class="back-link">&larr; 所有文章</a>
   <h1 class="page-title">标签：{tag}</h1>
   <p class="tag-desc">共 {posts.length} 篇文章</p>

@@ -9,10 +9,10 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
-  wide?: boolean;
+  sidebar?: boolean;
 }
 
-const { title = '栗かな的博客', description = '记录生活与技术的个人博客', wide = false } = Astro.props;
+const { title = '栗かな的博客', description = '记录生活与技术的个人博客', sidebar = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -30,11 +30,11 @@ const { title = '栗かな的博客', description = '记录生活与技术的个
   </head>
   <body>
     <Header />
-    <div class:list={['layout-wrapper', { wide }]}>
+    <div class:list={['layout-wrapper', { wide: !sidebar }]}>
       <main class="main-content">
         <slot />
       </main>
-      {!wide && <Sidebar />}
+      {sidebar && <Sidebar />}
     </div>
     <Footer />
     <Search />
