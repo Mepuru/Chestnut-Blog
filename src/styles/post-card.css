@@ -27,12 +27,12 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
-  font-size: 0.8rem;
+  font-size: var(--font-size-post-meta);
   color: var(--muted);
 }
 
 .post-card-title {
-  font-size: 1rem;
+  font-size: var(--font-size-post-title);
   font-weight: 600;
   line-height: 1.5;
   margin-bottom: 0.5rem;
@@ -48,7 +48,7 @@
 }
 
 .post-card-desc {
-  font-size: 0.82rem;
+  font-size: var(--font-size-post-desc);
   color: var(--muted);
   line-height: 1.6;
   display: -webkit-box;
@@ -65,7 +65,7 @@
 }
 
 .tag {
-  font-size: 0.72rem;
+  font-size: var(--font-size-tag);
   padding: 0.12rem 0.5rem;
   background: var(--accent-light);
   color: var(--accent);

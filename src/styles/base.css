@@ -83,6 +83,21 @@
   --font-size-card-desc: 0.95rem;
   --font-size-stats: 1.5rem;
   --font-size-text: 0.9rem;
+  
+  /* 博客卡片字体 */
+  --font-size-post-title: 1rem;
+  --font-size-post-desc: 0.82rem;
+  --font-size-post-meta: 0.8rem;
+  --font-size-tag: 0.72rem;
+  
+  /* 侧边栏字体 */
+  --font-size-sidebar-title: 0.85rem;
+  --font-size-sidebar-text: 0.8rem;
+  --font-size-sidebar-label: 0.72rem;
+  
+  /* 文章内容字体 */
+  --font-size-article-title: 1.65rem;
+  --font-size-article-meta: 0.85rem;
 }
 
 @media (min-width: 769px) {
@@ -93,6 +108,21 @@
     --font-size-card-desc: 1.05rem;
     --font-size-stats: 2.5rem;
     --font-size-text: 1rem;
+    
+    /* 博客卡片字体 */
+    --font-size-post-title: 1.15rem;
+    --font-size-post-desc: 0.92rem;
+    --font-size-post-meta: 0.85rem;
+    --font-size-tag: 0.8rem;
+    
+    /* 侧边栏字体 */
+    --font-size-sidebar-title: 0.95rem;
+    --font-size-sidebar-text: 0.9rem;
+    --font-size-sidebar-label: 0.8rem;
+    
+    /* 文章内容字体 */
+    --font-size-article-title: 2rem;
+    --font-size-article-meta: 0.9rem;
   }
 }
 
