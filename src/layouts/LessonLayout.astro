@@ -41,15 +41,20 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 <style>
   .lessons-page {
     display: flex;
-    gap: 2rem;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
+    min-height: calc(100vh - 64px);
   }
 
   .lessons-main {
     flex: 1;
     min-width: 0;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 3rem;
+  }
+
+  .lesson {
+    width: 100%;
+    max-width: 750px;
   }
 
   .lesson-header {
@@ -68,7 +73,7 @@ const dateStr = date.toLocaleDateString('zh-CN', {
   }
 
   .lesson-title {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     line-height: 1.4;
     margin: 0;
   }
@@ -80,7 +85,10 @@ const dateStr = date.toLocaleDateString('zh-CN', {
   @media (max-width: 768px) {
     .lessons-page {
       flex-direction: column;
-      padding: 1rem;
+    }
+
+    .lessons-main {
+      padding: 1.5rem 1rem;
     }
   }
 </style>
