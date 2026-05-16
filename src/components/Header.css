@@ -164,7 +164,7 @@
   background: transparent;
   border: none;
   border-radius: var(--radius-sm);
-  color: var(--fg);
+  color: var(--theme-label);
   font-size: 0.85rem;
   cursor: pointer;
   text-align: left;
