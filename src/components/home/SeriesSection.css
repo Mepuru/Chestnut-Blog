@@ -18,6 +18,11 @@
   letter-spacing: 0.05em;
 }
 
+/* 覆盖全局的 section-title::after 伪元素，避免显示两条分割线 */
+.section-title::after {
+  display: none;
+}
+
 .section-divider {
   height: 1px;
   background: var(--border);
