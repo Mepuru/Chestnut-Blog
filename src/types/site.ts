@@ -19,6 +19,9 @@ export interface SiteConfig {
     icp?: string;
     icpUrl?: string;
   };
+  docs: {
+    emptyText: string;
+  };
 }
 
 export interface ThemeConfig {

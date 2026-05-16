@@ -19,6 +19,9 @@ export const siteConfig: SiteConfig = {
     icp: '鲁ICP备2024121288号',
     icpUrl: 'https://beian.miit.gov.cn/',
   },
+  docs: {
+    emptyText: '『四季轮回 岁岁年年』',
+  },
 };
 
 export const defaultTitle = siteConfig.title;
