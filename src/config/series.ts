@@ -1,17 +1,4 @@
-export type SortField = 'pubDate' | 'week' | 'title';
-export type SortOrder = 'asc' | 'desc';
-
-export interface SeriesConfig {
-  id: string;
-  title: string;
-  description: string;
-  countLabel: string;
-  link: string;
-  collection: string;
-  align: 'left' | 'right';
-  sortField: SortField;
-  sortOrder: SortOrder;
-}
+import type { SeriesConfig } from '../types/series';
 
 export const seriesConfig: SeriesConfig[] = [
   {
