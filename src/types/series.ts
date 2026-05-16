@@ -19,7 +19,6 @@ export interface SeriesData extends SeriesConfig {
     id: string;
     data: {
       title: string;
-      [key: string]: any;
     };
   }>;
 }
