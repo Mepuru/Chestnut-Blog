@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import LessonLayout from '../../layouts/LessonLayout.astro';
-import LessonSidebar from '../../components/lessons/LessonSidebar.astro';
 
 export async function getStaticPaths() {
   const lessons = await getCollection('lessons');
@@ -20,6 +19,7 @@ const { Content } = await render(lesson);
 <LessonLayout
   title={lesson.data.title}
   date={lesson.data.date}
+  currentSlug={lesson.id}
 >
   <Content />
 </LessonLayout>

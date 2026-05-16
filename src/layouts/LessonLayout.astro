@@ -1,13 +1,15 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import LessonSidebar from '../components/lessons/LessonSidebar.astro';
 
 interface Props {
   title: string;
   description?: string;
   date: Date;
+  currentSlug?: string;
 }
 
-const { title, description, date } = Astro.props;
+const { title, description, date, currentSlug } = Astro.props;
 
 const dateStr = date.toLocaleDateString('zh-CN', {
   year: 'numeric',
@@ -17,21 +19,39 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 ---
 
 <BaseLayout title={`${title} - 日语教案`} description={description}>
-  <a href="/lessons" class="back-link">&larr; 返回教案列表</a>
-  <article class="lesson">
-    <header class="lesson-header">
-      <div class="lesson-meta">
-        <time class="lesson-date">{dateStr}</time>
-      </div>
-      <h1 class="lesson-title">{title}</h1>
-    </header>
-    <div class="lesson-content prose">
-      <slot />
-    </div>
-  </article>
+  <div class="lessons-page">
+    <LessonSidebar currentSlug={currentSlug} />
+
+    <main class="lessons-main">
+      <article class="lesson">
+        <header class="lesson-header">
+          <div class="lesson-meta">
+            <time class="lesson-date">{dateStr}</time>
+          </div>
+          <h1 class="lesson-title">{title}</h1>
+        </header>
+        <div class="lesson-content prose">
+          <slot />
+        </div>
+      </article>
+    </main>
+  </div>
 </BaseLayout>
 
 <style>
+  .lessons-page {
+    display: flex;
+    gap: 2rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .lessons-main {
+    flex: 1;
+    min-width: 0;
+  }
+
   .lesson-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
@@ -47,14 +67,6 @@ const dateStr = date.toLocaleDateString('zh-CN', {
     color: var(--muted);
   }
 
-  .lesson-week {
-    background: var(--accent-light);
-    color: var(--accent);
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    font-weight: 500;
-  }
-
   .lesson-title {
     font-size: 1.65rem;
     line-height: 1.4;
@@ -63,5 +75,12 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 
   .lesson-content {
     line-height: 1.9;
+  }
+
+  @media (max-width: 768px) {
+    .lessons-page {
+      flex-direction: column;
+      padding: 1rem;
+    }
   }
 </style>
