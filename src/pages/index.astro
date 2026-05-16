@@ -7,20 +7,26 @@ import { seriesConfig } from '../config/series';
 import { getCollection } from 'astro:content';
 import '../styles/home.css';
 
+// 通用排序函数
+function sortItems(items: any[], sortField: string, sortOrder: string) {
+  return items.sort((a, b) => {
+    const valueA = a.data[sortField];
+    const valueB = b.data[sortField];
+    
+    if (sortOrder === 'desc') {
+      return valueB > valueA ? 1 : valueB < valueA ? -1 : 0;
+    }
+    return valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
+  });
+}
+
 // 自动获取所有系列的数据
 const seriesData = await Promise.all(
   seriesConfig.map(async (series) => {
     try {
       const collection = await getCollection(series.collection);
-      const sorted = collection
-        .filter((item) => !item.data.draft)
-        .sort((a, b) => {
-          // 博客按日期倒序，教案按周次倒序
-          if (series.collection === 'blog') {
-            return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
-          }
-          return b.data.week - a.data.week;
-        });
+      const filtered = collection.filter((item) => !item.data.draft);
+      const sorted = sortItems(filtered, series.sortField, series.sortOrder);
 
       return {
         ...series,

@@ -1,0 +1,69 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  week: number;
+  date: Date;
+}
+
+const { title, description, week, date } = Astro.props;
+
+const dateStr = date.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<BaseLayout title={`${title} - 日语教案`} description={description}>
+  <a href="/lessons" class="back-link">&larr; 返回教案列表</a>
+  <article class="lesson">
+    <header class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-week">第 {week} 周</span>
+        <time class="lesson-date">{dateStr}</time>
+      </div>
+      <h1 class="lesson-title">{title}</h1>
+    </header>
+    <div class="lesson-content prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .lesson-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .lesson-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .lesson-week {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  .lesson-title {
+    font-size: 1.65rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .lesson-content {
+    line-height: 1.9;
+  }
+</style>

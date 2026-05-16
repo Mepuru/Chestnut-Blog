@@ -2,8 +2,9 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
-import Sidebar from '../components/Sidebar.astro';
+import Sidebar from '../components/shared/Sidebar.astro';
 import { defaultTheme } from '../utils/themes';
+import { defaultTitle, defaultDescription } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
   sidebar?: boolean;
 }
 
-const { title = '栗かな的博客', description = '记录生活与技术的个人博客', sidebar = false } = Astro.props;
+const { title = defaultTitle, description = defaultDescription, sidebar = false } = Astro.props;
 ---
 
 <!doctype html>

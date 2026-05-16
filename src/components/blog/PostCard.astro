@@ -1,0 +1,30 @@
+---
+import type { PostCardProps } from '../types';
+
+type Props = PostCardProps;
+
+const { title, description, pubDate, slug, tags = [], readingTime } = Astro.props;
+
+const dateStr = pubDate.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<article class="post-card">
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <time>{dateStr}</time>
+      {tags.length > 0 && (
+        <div class="tags">
+          {tags.slice(0, 2).map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </div>
+    <h3 class="post-card-title">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </h3>
+    <p class="post-card-desc">{description}</p>
+  </div>
+</article>

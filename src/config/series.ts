@@ -1,3 +1,6 @@
+export type SortField = 'pubDate' | 'week' | 'title';
+export type SortOrder = 'asc' | 'desc';
+
 export interface SeriesConfig {
   id: string;
   title: string;
@@ -6,6 +9,8 @@ export interface SeriesConfig {
   link: string;
   collection: string;
   align: 'left' | 'right';
+  sortField: SortField;
+  sortOrder: SortOrder;
 }
 
 export const seriesConfig: SeriesConfig[] = [
@@ -17,6 +22,8 @@ export const seriesConfig: SeriesConfig[] = [
     link: '/blog',
     collection: 'blog',
     align: 'left',
+    sortField: 'pubDate',
+    sortOrder: 'desc',
   },
   {
     id: 'lessons',
@@ -26,5 +33,7 @@ export const seriesConfig: SeriesConfig[] = [
     link: '/lessons',
     collection: 'lessons',
     align: 'right',
+    sortField: 'week',
+    sortOrder: 'desc',
   },
 ];
