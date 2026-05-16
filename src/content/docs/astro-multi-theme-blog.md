@@ -1,6 +1,6 @@
 ---
 title: "用 Astro 搭建多主题博客：架构设计与实现"
-date: 2026-05-15
+pubDate: 2026-05-15
 category: "Astro"
 ---
 

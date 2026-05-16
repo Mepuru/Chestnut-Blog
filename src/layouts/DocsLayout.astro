@@ -8,7 +8,7 @@ import { siteConfig } from '../config/site';
 interface Props {
   title: string;
   description?: string;
-  date?: Date;
+  pubDate?: Date;
   currentSlug?: string;
   headings?: Array<{
     depth: number;
@@ -19,9 +19,9 @@ interface Props {
   next?: { title: string; slug: string };
 }
 
-const { title, description, date, currentSlug, headings = [], prev, next } = Astro.props;
+const { title, description, pubDate, currentSlug, headings = [], prev, next } = Astro.props;
 
-const dateStr = date ? formatDate(date) : '';
+const dateStr = pubDate ? formatDate(pubDate) : '';
 const hasDoc = !!currentSlug;
 ---
 

@@ -19,7 +19,7 @@ const { Content, headings } = await render(doc);
 
 const allDocs = (await getCollection('docs'))
   .filter((d) => !d.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const currentIndex = allDocs.findIndex((d) => d.id === doc.id);
 const prev = currentIndex > 0 ? allDocs[currentIndex - 1] : null;
@@ -28,7 +28,7 @@ const next = currentIndex < allDocs.length - 1 ? allDocs[currentIndex + 1] : nul
 
 <DocsLayout
   title={doc.data.title}
-  date={doc.data.date}
+  pubDate={doc.data.pubDate}
   currentSlug={doc.id}
   headings={headings}
   prev={prev ? { title: prev.data.title, slug: prev.id } : undefined}

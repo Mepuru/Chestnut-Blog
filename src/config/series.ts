@@ -33,7 +33,7 @@ export const seriesConfig: SeriesConfig[] = [
     link: '/docs',
     collection: 'docs',
     align: 'right',
-    sortField: 'date',
+    sortField: 'pubDate',
     sortOrder: 'desc',
   },
 ];
