@@ -16,9 +16,9 @@ const { headings } = Astro.props;
 const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 ---
 
-{filteredHeadings.length > 0 && (
-  <aside class="toc">
-    <h4 class="toc-title">本页目录</h4>
+<aside class="toc">
+  <h4 class="toc-title">本页目录</h4>
+  {filteredHeadings.length > 0 ? (
     <nav class="toc-nav">
       <ul class="toc-list">
         {filteredHeadings.map((heading) => (
@@ -30,14 +30,16 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
         ))}
       </ul>
     </nav>
-  </aside>
-)}
+  ) : (
+    <p class="toc-empty">暂无目录</p>
+  )}
+</aside>
 
 <style>
   .toc {
     position: sticky;
     top: 88px;
-    width: 220px;
+    width: 240px;
     flex-shrink: 0;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
@@ -89,6 +91,12 @@ const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
   .toc-link.active {
     color: var(--accent);
     font-weight: 500;
+  }
+
+  .toc-empty {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
   }
 
   @media (max-width: 1200px) {

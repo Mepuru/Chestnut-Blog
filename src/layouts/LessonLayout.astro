@@ -42,14 +42,25 @@ const dateStr = date.toLocaleDateString('zh-CN', {
       </article>
     </main>
 
-    {headings.length > 0 && <TOC headings={headings} />}
+    <div class="toc-wrapper">
+      <button class="toc-toggle" id="toc-toggle" aria-label="切换目录">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="15" y2="12"/>
+          <line x1="3" y1="18" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="toc-container" id="toc-container">
+        <TOC headings={headings} />
+      </div>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
   .lessons-page {
     display: grid;
-    grid-template-columns: 260px 1fr 220px;
+    grid-template-columns: 240px 1fr 240px;
     min-height: calc(100vh - 64px);
   }
 
@@ -62,7 +73,7 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 
   .lesson {
     width: 100%;
-    max-width: 750px;
+    max-width: 900px;
   }
 
   .lesson-header {
@@ -90,10 +101,48 @@ const dateStr = date.toLocaleDateString('zh-CN', {
     line-height: 1.9;
   }
 
+  .toc-wrapper {
+    position: relative;
+  }
+
+  .toc-toggle {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 100;
+    transition: all 0.2s ease;
+  }
+
+  .toc-toggle:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .toc-toggle.open {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .toc-container {
+    position: sticky;
+    top: 88px;
+  }
+
   /* 小屏幕时隐藏 TOC */
   @media (max-width: 1200px) {
     .lessons-page {
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 240px 1fr;
     }
   }
 
@@ -106,5 +155,56 @@ const dateStr = date.toLocaleDateString('zh-CN', {
     .lessons-main {
       padding: 1.5rem 1rem;
     }
+
+    .toc-toggle {
+      display: flex;
+    }
+
+    .toc-container {
+      display: none;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      overflow-y: auto;
+      z-index: 99;
+    }
+
+    .toc-container.open {
+      display: block;
+    }
   }
 </style>
+
+<script>
+  // 手机端目录切换
+  function initTocToggle() {
+    const toggle = document.getElementById('toc-toggle');
+    const container = document.getElementById('toc-container');
+
+    if (!toggle || !container) return;
+
+    toggle.addEventListener('click', () => {
+      container.classList.toggle('open');
+      toggle.classList.toggle('open');
+    });
+
+    // 点击其他地方关闭
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target) && !toggle.contains(e.target)) {
+        container.classList.remove('open');
+        toggle.classList.remove('open');
+      }
+    });
+  }
+
+  // 页面加载时初始化
+  initTocToggle();
+
+  // 页面切换时重新初始化
+  document.addEventListener('astro:after-swap', initTocToggle);
+</script>
