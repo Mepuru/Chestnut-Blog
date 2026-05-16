@@ -23,6 +23,7 @@ const { title, description, pubDate, currentSlug, headings = [], prev, next } = 
 
 const dateStr = pubDate ? formatDate(pubDate) : '';
 const hasDoc = !!currentSlug;
+const emptyText = siteConfig.docs.emptyTexts[Math.floor(Math.random() * siteConfig.docs.emptyTexts.length)];
 ---
 
   <BaseLayout title={`${title} - 文档`} description={description}>
@@ -60,7 +61,7 @@ const hasDoc = !!currentSlug;
         </article>
       ) : (
         <div class="lesson lesson-empty">
-          <p>{siteConfig.docs.emptyText}</p>
+          <p>{emptyText}</p>
         </div>
       )}
     </main>

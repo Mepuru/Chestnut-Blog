@@ -20,7 +20,7 @@ export interface SiteConfig {
     icpUrl?: string;
   };
   docs: {
-    emptyText: string;
+    emptyTexts: string[];
   };
 }
 
