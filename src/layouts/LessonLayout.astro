@@ -60,11 +60,12 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 <style>
   .lessons-page {
     display: grid;
-    grid-template-columns: 240px 1fr 240px;
+    grid-template-columns: 260px 800px 260px;
     min-height: calc(100vh - 64px);
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 2rem;
+    justify-content: center;
   }
 
   .lessons-main {
@@ -76,8 +77,6 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 
   .lesson {
     width: 100%;
-    min-width: 600px;
-    max-width: 1000px;
   }
 
   .lesson-header {
@@ -141,13 +140,18 @@ const dateStr = date.toLocaleDateString('zh-CN', {
   .toc-container {
     position: sticky;
     top: 88px;
+    width: 260px;
   }
 
   /* 小屏幕时隐藏 TOC */
-  @media (max-width: 1200px) {
+  @media (max-width: 1400px) {
     .lessons-page {
-      grid-template-columns: 240px 1fr;
+      grid-template-columns: 260px 1fr;
       padding: 0 1.5rem;
+    }
+
+    .toc-container {
+      display: none;
     }
   }
 
@@ -160,10 +164,6 @@ const dateStr = date.toLocaleDateString('zh-CN', {
 
     .lessons-main {
       padding: 1.5rem 0;
-    }
-
-    .lesson {
-      min-width: auto;
     }
 
     .toc-toggle {
@@ -182,6 +182,7 @@ const dateStr = date.toLocaleDateString('zh-CN', {
       padding: 1.5rem;
       overflow-y: auto;
       z-index: 99;
+      width: 100%;
     }
 
     .toc-container.open {
