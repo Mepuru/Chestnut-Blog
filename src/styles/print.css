@@ -1,0 +1,39 @@
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  body {
+    font-size: 9pt;
+  }
+
+  .post-header h1 {
+    color: #000 !important;
+  }
+
+  .site-header,
+  footer,
+  .docs-sidebar,
+  .sidebar-toggle,
+  .toc-toggle,
+  #mobile-menu {
+    display: none !important;
+  }
+
+  .prose pre {
+    background: #f5f5f5 !important;
+  }
+
+  .print-meta {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 7.5pt;
+    color: #999;
+    padding: 0.5rem 1rem;
+    z-index: 9999;
+  }
+}

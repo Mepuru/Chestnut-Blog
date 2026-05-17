@@ -32,6 +32,7 @@ const { title = defaultTitle, description = defaultDescription, sidebar = false 
     </script>
   </head>
   <body>
+    <div class="print-meta" style="display:none">栗かな | {Astro.url.href}</div>
     <Header />
     <div class:list={['layout-wrapper', { wide: !sidebar }]}>
       <main class="main-content">
