@@ -18,7 +18,8 @@
   .docs-sidebar,
   .sidebar-toggle,
   .toc-toggle,
-  #mobile-menu {
+  #mobile-menu,
+  .doc-nav {
     display: none !important;
   }
 
