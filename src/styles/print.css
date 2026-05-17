@@ -27,15 +27,10 @@
   }
 
   .print-meta {
-    display: none;
-    string-set: printInfo content();
-  }
-}
-
-@page {
-  @bottom-right {
-    content: string(printInfo);
+    display: block !important;
+    text-align: right;
     font-size: 7.5pt;
     color: #999;
+    padding: 0.5rem 1rem;
   }
 }
