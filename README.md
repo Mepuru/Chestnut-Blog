@@ -33,6 +33,7 @@ npm install
 npm run dev        # http://localhost:4321
 npm run build      # 构建 + Pagefind 索引
 npm run preview    # 预览构建结果
+npm run typecheck  # 类型检查（需先安装 @astrojs/check）
 ```
 
 ## 项目结构
@@ -88,12 +89,49 @@ export const siteConfig = {
   social: { github: 'https://github.com/Mepuru' },
   footer: { icp: '鲁ICP备...', icpUrl: 'https://...' },
   docs: {
-    emptyTexts: ['四季轮回 岁岁年年', '花开花落\n皆是风景', ...],
+    emptyTexts: [
+      '『 四季轮回 岁岁年年 』',
+      '『 今天吃什么呢？ 』\n『 是啊，吃什么呢？ 』',
+      '『 到处点一点试试看？ 』',
+    ],
   },
 };
 ```
 
 加导航页、改昵称、换头像 —— 只改这一个文件。
+
+## 系列配置
+
+首页的「博客」和「文档」两个系列卡片在 `src/config/series.ts` 中配置：
+
+```ts
+export const seriesConfig = [
+  {
+    id: 'blog',
+    title: '博客',
+    description: '散装的技术与生活记录',
+    link: '/blog',
+    collection: 'blog',
+    align: 'left',
+    sortField: 'pubDate',
+    sortOrder: 'desc',
+  },
+  {
+    id: 'docs',
+    title: '文档',
+    description: '技术文档与知识整理',
+    link: '/docs',
+    collection: 'docs',
+    align: 'right',
+    sortField: 'pubDate',
+    sortOrder: 'desc',
+  },
+];
+```
+
+- `collection` 对应 `src/content/` 下的目录名
+- `align` 控制卡片在首页的左/右对齐
+- `sortField` 和 `sortOrder` 控制排序
 
 ## 写博客
 
@@ -121,7 +159,39 @@ draft: false
 title: 文档标题
 pubDate: 2026-05-16
 category: Astro    # 可选，侧边栏按此分组折叠
+draft: false       # 可选，true 时构建自动过滤
 ---
+```
+
+## 独立页面
+
+在 `src/content/pages/` 下创建 `.md` 文件，然后在 `src/pages/` 下创建对应的路由页面：
+
+```yaml
+---
+title: 关于我
+---
+```
+
+路由页面示例（`src/pages/about.astro`）：
+
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const page = await getEntry('pages', 'about');
+const { Content } = await render(page);
+---
+
+<BaseLayout title={`{page.data.title} - 栗かな的博客`}>
+  <div class="page-header">
+    <h1>{page.data.title}</h1>
+  </div>
+  <div class="prose">
+    <Content />
+  </div>
+</BaseLayout>
 ```
 
 ## 添加新主题

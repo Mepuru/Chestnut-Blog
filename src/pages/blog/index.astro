@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/blog/PostCard.astro';
 import { getPublishedPosts } from '../../utils/content';
-import { estimateReadingTime } from '../../utils/reading-time';
 
 const posts = await getPublishedPosts();
 ---
@@ -17,7 +16,6 @@ const posts = await getPublishedPosts();
         pubDate={post.data.pubDate}
         slug={post.id}
         tags={post.data.tags}
-        readingTime={estimateReadingTime(post.body ?? '')}
       />
     ))}
   </div>

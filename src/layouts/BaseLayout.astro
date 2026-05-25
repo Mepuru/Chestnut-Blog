@@ -27,7 +27,7 @@ const { title = defaultTitle, description = defaultDescription, sidebar = false 
     <ViewTransitions />
     <title>{title}</title>
     <script is:inline>
-      const theme = localStorage.getItem('theme') || 'cream';
+      const theme = localStorage.getItem('theme') || defaultTheme;
       document.documentElement.setAttribute('data-theme', theme);
     </script>
   </head>
