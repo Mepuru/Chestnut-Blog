@@ -53,14 +53,12 @@ maroon/
 │
 ├── src/                       # 主应用 — 胶水层
 │   ├── config/
-│   │   └── site.ts            # ⭐ 站点配置（标题、头像、社交链接等）
+│   │   └── maroon.ts          # ⭐ **唯一配置入口**（站点信息 + 内容类型 + 路由）
 │   ├── content/
 │   │   ├── blog/ / docs/ / pages/  # Markdown 内容
-│   │   ├── registry.ts        # ⭐ 核心注册表（内容类型 + 路由 + 导航 + 系列）
-│   │   └── utils.ts           # 查询工具 + buildBlogSidebar / computePrevNext
+│   │   └── utils.ts           # 查询工具
 │   ├── content.config.ts      # Zod Schema
-│   ├── middleware.ts           # 配置注入 Astro.locals.site
-│   ├── env.d.ts               # Locals 类型声明
+│   ├── middleware.ts           # 一行导入，配置注入 Astro.locals.site
 │   └── pages/                 # 路由（极薄胶水层）
 ├── tsconfig.json              # 路径别名映射到主题包
 └── package.json               # workspaces: ["packages/*"]
@@ -68,7 +66,7 @@ maroon/
 
 ## 配置体系
 
-### 唯一入口：`src/content/registry.ts`
+### 唯一入口：`src/config/maroon.ts`
 
 所有内容类型的路由、导航、首页系列卡片由此一条记录自动推导：
 
@@ -86,7 +84,7 @@ export const contentRegistry = [
 ];
 ```
 
-### 站点信息：`src/config/site.ts`
+### 站点信息：`src/config/maroon.ts` （同一文件）
 
 ```ts
 export const siteConfig = {
