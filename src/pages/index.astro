@@ -43,8 +43,8 @@ const bio = ctx?.bio ?? '';
 ---
 
 <BaseLayout
-  title="栗かな"
-  description="记录生活与技术的个人博客"
+  title={Astro.locals.site?.title ?? 'Maroon'}
+  description={Astro.locals.site?.description ?? ''}
 >
   <div class="home-page">
     <Hero avatar={avatar} author={author} bio={bio} />

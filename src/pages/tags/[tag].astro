@@ -23,11 +23,11 @@ const posts = allPosts.filter((p) => (p.data.tags ?? []).includes(tag));
 ---
 
 <BaseLayout
-  title={`${tag} - 栗かな的博客`}
+  title={`${tag} - ${Astro.locals.site?.title ?? ''}`}
   sidebar={true}
   sidebarData={sidebarData}
 >
-  <a href="/blog" class="back-link">&larr; 所有文章</a>
+  <a href={Astro.locals.site?.routes?.blog?.prefix ?? '/blog'} class="back-link">&larr; 文章</a>
   <h1 class="page-title">标签：{tag}</h1>
   <p class="tag-desc">共 {posts.length} 条内容</p>
   <div class="post-grid">

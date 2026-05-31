@@ -8,11 +8,11 @@ const { posts, sidebarData } = await buildBlogSidebar(ctx);
 ---
 
 <BaseLayout
-  title="文章 - 栗かな的博客"
+  title={`文章 - ${Astro.locals.site?.title ?? ''}`}
   sidebar={true}
   sidebarData={sidebarData}
 >
-  <h1 class="page-title">所有文章</h1>
+  <h1 class="page-title">文章</h1>
   <div class="post-grid">
     {posts.map((post) => (
       <PostCard
