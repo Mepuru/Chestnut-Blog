@@ -56,11 +56,9 @@ const dateStr = formatDate(pubDate);
   sidebarData={sidebarData}
 >
   <div class="post-page">
-    {headings.length > 0 && (
       <aside class="post-toc" id="post-toc">
         <TOC headings={headings} />
       </aside>
-    )}
 
     <article class="post-article">
       <a href="/blog" class="back-link">&larr; 返回文章列表</a>
@@ -82,7 +80,6 @@ const dateStr = formatDate(pubDate);
     </article>
   </div>
 
-  {headings.length > 0 && (
     <button class="post-toc-toggle" id="post-toc-toggle" aria-label="切换目录">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="3" y1="6" x2="21" y2="6"/>
@@ -90,7 +87,6 @@ const dateStr = formatDate(pubDate);
         <line x1="3" y1="18" x2="18" y2="18"/>
       </svg>
     </button>
-  )}
 </BaseLayout>
 
 <style>
