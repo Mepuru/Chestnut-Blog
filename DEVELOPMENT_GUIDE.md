@@ -228,7 +228,7 @@ docs: 更新架构文档和 README
 
 ### Registry 驱动一切（核心）
 
-`src/content/registry.ts` 是**唯一配置入口**。导航、URL 路径、首页系列卡片全部由此自动推导。
+`src/content/registry.ts` 是**唯一配置入口**。导航、URL 路径、首页系列卡片、标签聚合全部由此自动推导。
 
 ```typescript
 export const contentRegistry: ContentTypeConfig[] = [
@@ -239,6 +239,7 @@ export const contentRegistry: ContentTypeConfig[] = [
     layout: 'post',
     sidebarIncluded: true,
     showInNav: true,
+    hasTags: true,            // ← 控制标签页和侧边栏的标签聚合
     series: {
       description: '散装的技术与生活记录',
       countLabel: '篇文章',
@@ -257,6 +258,7 @@ export const contentRegistry: ContentTypeConfig[] = [
 | `generateRoutes()` | 路由表 → `Astro.locals.site.routes` | 所有组件读取路径 |
 | `generateNavItems()` | 导航栏 → `siteConfig.nav` | Header 渲染 |
 | `generateSeriesConfigs()` | 系列配置 → 首页 | 首页 SeriesCard |
+| `generateTaggableCollections()` | 带 tags 的 collection 列表 | 标签页 + 侧边栏标签云 |
 
 ### Middleware 注入
 
@@ -348,6 +350,7 @@ chestnut-astro/
   layout: 'post',              // 使用 PostLayout 样式
   sidebarIncluded: false,
   showInNav: true,             // 导航栏自动出现
+  hasTags: true,               // 如果前端有 tags 字段，设为 true 则标签页自动聚合
   series: {
     description: '学习笔记',
     countLabel: '篇笔记',
@@ -441,7 +444,7 @@ Astro.locals.site = {
   docs: { emptyTexts },                            // 文档空状态
   themes: [{ id, name }],                          // 主题列表
   defaultTheme,                                    // 默认主题
-  routes: { blog, docs, tags, about, home, icon }, // 路由表
+  routes: { blog, docs, tags, about, home, icon, [key: string]: ... }, // 路由表
 };
 ```
 
