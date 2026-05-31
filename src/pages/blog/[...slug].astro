@@ -1,7 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
-import PostLayout from '../../layouts/PostLayout.astro';
-import { estimateReadingTime } from '../../utils/reading-time';
+import PostLayout from '@kurikana/astro-theme/layouts/PostLayout.astro';
+import { siteConfig } from '../../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
+import { estimateReadingTime } from '@kurikana/astro-theme/utils/reading-time';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -15,16 +17,51 @@ export async function getStaticPaths() {
 
 type Props = Awaited<ReturnType<typeof getCollection<'blog'>>>[number];
 
+const { title, description, nav, author, footer } = siteConfig;
+
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+
+// 提取全局标签（给侧边栏）
+const allPosts = await getCollection('blog');
+const publishedPosts = allPosts.filter((p) => !p.data.draft);
+const allTags = publishedPosts.flatMap((p) => p.data.tags);
+const tagCountMap = allTags.reduce((acc, tag) => {
+  acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+const sortedTags = Object.entries(tagCountMap)
+  .sort((a, b) => b[1] - a[1])
+  .map(([name, count]) => ({ name, count }));
+
+const sidebarData = {
+  avatar: siteConfig.avatar,
+  author: siteConfig.author,
+  bio: siteConfig.bio,
+  postsCount: publishedPosts.length,
+  tags: sortedTags,
+  tagCount: sortedTags.length,
+  githubUrl: siteConfig.social.github,
+};
 ---
 
 <PostLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
+  sidebar={true}
+  sidebarData={sidebarData}
   title={post.data.title}
   description={post.data.description}
   pubDate={post.data.pubDate}
   tags={post.data.tags}
   readingTime={estimateReadingTime(post.body ?? '')}
+  headings={headings}
 >
   <Content />
 </PostLayout>

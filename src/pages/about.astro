@@ -1,12 +1,26 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@kurikana/astro-theme/layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
 import { getEntry, render } from 'astro:content';
+
+const { title, description, nav, author, footer } = siteConfig;
 
 const about = await getEntry('pages', 'about');
 const { Content } = await render(about);
 ---
 
-<BaseLayout title="关于 - 栗かな的博客">
+<BaseLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
+  title={`${about.data.title} - ${title}的博客`}
+>
   <div class="page-header">
     <h1>{about.data.title}</h1>
   </div>

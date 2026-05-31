@@ -1,12 +1,48 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostCard from '../../components/blog/PostCard.astro';
+import BaseLayout from '@kurikana/astro-theme/layouts/BaseLayout.astro';
+import PostCard from '@kurikana/astro-theme/components/blog/PostCard.astro';
+import { siteConfig } from '../../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
 import { getPublishedPosts } from '../../utils/content';
 
+const { title, description, nav, author, footer } = siteConfig;
+
 const posts = await getPublishedPosts();
+
+// 提取标签并排序
+const allTags = posts.flatMap((p) => p.data.tags);
+const tagCountMap = allTags.reduce((acc, tag) => {
+  acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+const sortedTags = Object.entries(tagCountMap)
+  .sort((a, b) => b[1] - a[1])
+  .map(([name, count]) => ({ name, count }));
+
+const sidebarData = {
+  avatar: siteConfig.avatar,
+  author: siteConfig.author,
+  bio: siteConfig.bio,
+  postsCount: posts.length,
+  tags: sortedTags,
+  tagCount: sortedTags.length,
+  githubUrl: siteConfig.social.github,
+};
 ---
 
-<BaseLayout title="文章 - 栗かな的博客" sidebar={true}>
+<BaseLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
+  title="文章 - 栗かな的博客"
+  sidebar={true}
+  sidebarData={sidebarData}
+>
   <h1 class="page-title">所有文章</h1>
   <div class="post-grid">
     {posts.map((post) => (

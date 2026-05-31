@@ -1,7 +1,52 @@
 ---
-import DocsLayout from '../../layouts/DocsLayout.astro';
+import DocsLayout from '@kurikana/astro-theme/layouts/DocsLayout.astro';
+import { siteConfig } from '../../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
+import { getCollection } from 'astro:content';
+
+const { title, description, nav, author, footer, docs: siteDocs } = siteConfig;
+
+// 加载文档并分组（此逻辑之前在内嵌在 DocsSidebar 中）
+const allDocs = await getCollection('docs');
+const publishedDocs = allDocs.filter((d) => !d.data.draft).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const groups = new Map<string, typeof publishedDocs>();
+const uncategorized: typeof publishedDocs = [];
+
+for (const doc of publishedDocs) {
+  const cat = doc.data.category;
+  if (cat) {
+    if (!groups.has(cat)) groups.set(cat, []);
+    groups.get(cat)!.push(doc);
+  } else {
+    uncategorized.push(doc);
+  }
+}
+
+const categories = [...groups.keys()].sort().map((name) => ({
+  name,
+  docs: groups.get(name)!.map((d) => ({ slug: d.id, title: d.data.title })),
+}));
 ---
 
-<DocsLayout title="文档" currentSlug={undefined} headings={[]}>
+<DocsLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
+  title="文档"
+  currentSlug={undefined}
+  headings={[]}
+  categories={categories}
+  totalCount={publishedDocs.length}
+  uncategorized={uncategorized.map((d) => ({ slug: d.id, title: d.data.title }))}
+  emptyTexts={siteDocs.emptyTexts}
+>
   <!-- 无默认文档，用户从左侧目录选择 -->
 </DocsLayout>

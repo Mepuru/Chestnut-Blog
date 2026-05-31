@@ -1,8 +1,22 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@kurikana/astro-theme/layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
+
+const { title, description, nav, author, footer, docs } = siteConfig;
 ---
 
-<BaseLayout title="404 - 栗かな的博客">
+<BaseLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
+  title="404 - 栗かな的博客"
+>
   <div class="not-found">
     <h1>404</h1>
     <p>页面不存在</p>

@@ -1,11 +1,13 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/home/Hero.astro';
-import SeriesSection from '../components/home/SeriesSection.astro';
-import SeriesCard from '../components/home/SeriesCard.astro';
+import BaseLayout from '@kurikana/astro-theme/layouts/BaseLayout.astro';
+import Hero from '@kurikana/astro-theme/components/home/Hero.astro';
+import SeriesSection from '@kurikana/astro-theme/components/home/SeriesSection.astro';
+import SeriesCard from '@kurikana/astro-theme/components/home/SeriesCard.astro';
+import { siteConfig } from '../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
 import { seriesConfig } from '../config/series';
 import { getCollection } from 'astro:content';
-import '../styles/home.css';
+import '@kurikana/astro-theme/styles/home.css';
 
 // 通用排序函数
 function sortItems(items: any[], sortField: string, sortOrder: string) {
@@ -42,11 +44,24 @@ const seriesData = await Promise.all(
     }
   })
 );
+
+const { title, description, nav, author, footer } = siteConfig;
 ---
 
-<BaseLayout title="栗かな" description="记录生活与技术的个人博客">
+<BaseLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
+  title="栗かな"
+  description="记录生活与技术的个人博客"
+>
   <div class="home-page">
-    <Hero />
+    <Hero avatar={siteConfig.avatar} author={siteConfig.author} bio={siteConfig.bio} />
     
     <SeriesSection title="我的系列">
       {seriesData.map((series) => (

@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
-import DocsLayout from '../../layouts/DocsLayout.astro';
-import { getPublishedDocs } from '../../utils/content';
+import DocsLayout from '@kurikana/astro-theme/layouts/DocsLayout.astro';
+import { siteConfig } from '../../config/site';
+import { themes, defaultTheme } from '@kurikana/astro-theme/utils/themes';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -15,23 +16,60 @@ export async function getStaticPaths() {
 
 type Props = Awaited<ReturnType<typeof getCollection<'docs'>>>[number];
 
+const { title, description, nav, author, footer, docs: siteDocs } = siteConfig;
+
 const doc = Astro.props;
 const { Content, headings } = await render(doc);
 
-const allDocs = await getPublishedDocs();
+// 加载全部文档并分组
+const allDocs = await getCollection('docs');
+const publishedDocs = allDocs.filter((d) => !d.data.draft).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 
-const currentIndex = allDocs.findIndex((d) => d.id === doc.id);
-const prev = currentIndex > 0 ? allDocs[currentIndex - 1] : null;
-const next = currentIndex < allDocs.length - 1 ? allDocs[currentIndex + 1] : null;
+const groups = new Map<string, typeof publishedDocs>();
+const uncategorized: typeof publishedDocs = [];
+
+for (const d of publishedDocs) {
+  const cat = d.data.category;
+  if (cat) {
+    if (!groups.has(cat)) groups.set(cat, []);
+    groups.get(cat)!.push(d);
+  } else {
+    uncategorized.push(d);
+  }
+}
+
+const categories = [...groups.keys()].sort().map((name) => ({
+  name,
+  docs: groups.get(name)!.map((d) => ({ slug: d.id, title: d.data.title })),
+}));
+
+// 上下篇导航
+const currentIndex = publishedDocs.findIndex((d) => d.id === doc.id);
+const prev = currentIndex > 0 ? publishedDocs[currentIndex - 1] : null;
+const next = currentIndex < publishedDocs.length - 1 ? publishedDocs[currentIndex + 1] : null;
 ---
 
 <DocsLayout
+  siteTitle={title}
+  siteDescription={description}
+  nav={nav}
+  themes={themes}
+  defaultTheme={defaultTheme}
+  author={author}
+  icp={footer.icp}
+  icpUrl={footer.icpUrl}
   title={doc.data.title}
   pubDate={doc.data.pubDate}
   currentSlug={doc.id}
   headings={headings}
   prev={prev ? { title: prev.data.title, slug: prev.id } : undefined}
   next={next ? { title: next.data.title, slug: next.id } : undefined}
+  categories={categories}
+  totalCount={publishedDocs.length}
+  uncategorized={uncategorized.map((d) => ({ slug: d.id, title: d.data.title }))}
+  emptyTexts={siteDocs.emptyTexts}
 >
   <Content />
 </DocsLayout>
