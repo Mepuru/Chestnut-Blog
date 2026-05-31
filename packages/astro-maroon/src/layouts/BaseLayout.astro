@@ -3,7 +3,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
 import Sidebar from '../components/shared/Sidebar.astro';
-import Mermaid from '../components/shared/Mermaid.astro';
 import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import '../styles/layout.css';
@@ -106,7 +105,6 @@ const iconUrl = routes?.icon ?? '/favicon.svg';
     </div>
     <Footer {author} {icp} {icpUrl} />
     <Search />
-    <Mermaid />
     <script>
       document.addEventListener('astro:after-swap', () => {
         const theme = localStorage.getItem('theme');
