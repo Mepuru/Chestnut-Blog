@@ -74,8 +74,8 @@ const { sidebar = false, sidebarData } = Astro.props;
     <ViewTransitions />
     <title>{title}</title>
     <script is:inline>
-      const theme = localStorage.getItem('theme') || defaultTheme;
-      document.documentElement.setAttribute('data-theme', theme);
+      const stored = localStorage.getItem('theme');
+      if (stored) document.documentElement.setAttribute('data-theme', stored);
     </script>
   </head>
   <body>
