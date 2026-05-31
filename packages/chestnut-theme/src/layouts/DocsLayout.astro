@@ -135,30 +135,6 @@ const emptyText = emptyTexts[Math.floor(Math.random() * emptyTexts.length)];
 </BaseLayout>
 
 <style>
-  :global(.layout-wrapper) {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    display: block;
-  }
-
-  .docs-page {
-    min-height: calc(100vh - var(--header-height));
-  }
-
-  .docs-main {
-    margin-left: var(--sidebar-width);
-    margin-right: var(--toc-width);
-    padding: 2rem 3rem 2rem 1.5rem;
-    min-width: 0;
-  }
-
-  .doc-article {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
   .doc-empty {
     display: flex;
     align-items: center;
@@ -333,10 +309,6 @@ const emptyText = emptyTexts[Math.floor(Math.random() * emptyTexts.length)];
 
   /* 平板端：隐藏 TOC */
   @media (max-width: 1200px) {
-    .docs-main {
-      margin-right: 0;
-    }
-
     .toc-wrapper {
       display: none;
     }
@@ -365,11 +337,6 @@ const emptyText = emptyTexts[Math.floor(Math.random() * emptyTexts.length)];
 
   /* 手机端：侧边栏变抽屉 */
   @media (max-width: 768px) {
-    .docs-main {
-      margin-left: 0;
-      padding: 1.5rem 1rem;
-    }
-
     .sidebar-toggle {
       display: flex;
     }
