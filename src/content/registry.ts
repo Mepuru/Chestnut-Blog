@@ -23,6 +23,8 @@ export interface ContentTypeConfig {
   sidebarIncluded: boolean;
   /** 是否出现在导航栏 */
   showInNav?: boolean;
+  /** 是否在 frontmatter 中包含 tags 字段，影响标签页聚合 */
+  hasTags?: boolean;
   /** 可选：是否出现在首页的系列卡片区 */
   series?: {
     description: string;
@@ -45,6 +47,7 @@ export const contentRegistry: ContentTypeConfig[] = [
     layout: 'post',
     sidebarIncluded: true,
     showInNav: true,
+    hasTags: true,
     series: {
       description: '散装的技术与生活记录',
       countLabel: '篇文章',
@@ -110,6 +113,11 @@ export function generateNavItems() {
     ...items,
     { href: '/about', label: '关于' },
   ];
+}
+
+/** 返回带有 hasTags 标记的 collection id 列表 */
+export function generateTaggableCollections(): string[] {
+  return contentRegistry.filter((c) => c.hasTags).map((c) => c.id);
 }
 
 /** 系列配置：由 registry 中有 series 字段的条目自动生成 */

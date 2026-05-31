@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '@kurikana/astro-theme/layouts/BaseLayout.astro';
 import PostCard from '@kurikana/astro-theme/components/blog/PostCard.astro';
-import { getCollection } from 'astro:content';
-import { buildBlogSidebar } from '../../content/utils';
+import { buildBlogSidebar, getAllTaggablePosts } from '../../content/utils';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  const allTags = posts.flatMap((p) => p.data.tags);
+  const allPosts = await getAllTaggablePosts();
+  const allTags = allPosts.flatMap((p) => p.data.tags ?? []);
   const uniqueTags = [...new Set(allTags)];
 
   return uniqueTags.map((tag) => ({
@@ -18,8 +17,9 @@ export async function getStaticPaths() {
 const { tag } = Astro.props;
 
 const ctx = Astro.locals.site;
-const { posts: publishedPosts, sidebarData } = await buildBlogSidebar(ctx);
-const posts = publishedPosts.filter((p) => p.data.tags.includes(tag));
+const { sidebarData } = await buildBlogSidebar(ctx);
+const allPosts = await getAllTaggablePosts();
+const posts = allPosts.filter((p) => (p.data.tags ?? []).includes(tag));
 ---
 
 <BaseLayout
@@ -29,7 +29,7 @@ const posts = publishedPosts.filter((p) => p.data.tags.includes(tag));
 >
   <a href="/blog" class="back-link">&larr; 所有文章</a>
   <h1 class="page-title">标签：{tag}</h1>
-  <p class="tag-desc">共 {posts.length} 篇文章</p>
+  <p class="tag-desc">共 {posts.length} 条内容</p>
   <div class="post-grid">
     {posts.map((post) => (
       <PostCard

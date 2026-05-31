@@ -1,5 +1,6 @@
 import type { SortField, SortOrder } from '@kurikana/astro-theme/types';
 import { getCollection } from 'astro:content';
+import { generateTaggableCollections } from './registry';
 
 import {
   getTagStats,
@@ -73,6 +74,21 @@ export async function getPublishedDocs() {
 }
 
 // ============================================================
+// 跨 collection 标签聚合
+// ============================================================
+
+/**
+ * 获取所有标记了 hasTags 的 collection 中的已发布条目（扁平数组）
+ */
+export async function getAllTaggablePosts() {
+  const collectionIds = generateTaggableCollections();
+  const results = await Promise.all(
+    collectionIds.map((id) => getPublishedContent(id)),
+  );
+  return results.flat();
+}
+
+// ============================================================
 // 页面数据构建 helper
 // ============================================================
 
@@ -117,11 +133,14 @@ export function computePrevNext<T extends { id: string }>(
 
 /**
  * 获取标签统计并从 site context 构建侧边栏（博客页面通用）
+ *
+ * 文章列表仅为 blog（用于上下篇导航），标签统计跨所有 hasTags 的 collection
  */
 export async function buildBlogSidebar(ctx: SiteContext | undefined | null) {
   const posts = await getPublishedPosts();
+  const allTagged = await getAllTaggablePosts();
   return {
     posts,
-    sidebarData: buildSidebarFromContext(ctx, posts),
+    sidebarData: buildSidebarFromContext(ctx, allTagged),
   };
 }
