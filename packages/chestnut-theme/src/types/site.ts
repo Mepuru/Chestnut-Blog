@@ -3,10 +3,17 @@ export interface NavItem {
   label: string;
 }
 
+/**
+ * 路由表类型
+ *
+ * 已知路由（blog / docs / tags / about / home / icon）保持显式类型安全，
+ * index signature 允许 registry 新增的 content type 自动通过类型检查。
+ */
 export interface RoutesConfig {
-  blog: { prefix: string };
-  docs: { prefix: string };
-  tags: { prefix: string };
+  [key: string]: { prefix: string; pattern: string } | string;
+  blog: { prefix: string; pattern: string };
+  docs: { prefix: string; pattern: string };
+  tags: { prefix: string; pattern: string };
   about: string;
   home: string;
   icon: string;

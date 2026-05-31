@@ -17,8 +17,8 @@ export interface ContentTypeConfig {
     prefix: string;     // '/blog'
     pattern: string;    // '/blog/[slug]'
   };
-  /** 使用哪个 Layout（post = PostLayout, doc = DocsLayout） */
-  layout: 'post' | 'doc';
+  /** 使用哪个 Layout（'post' = PostLayout, 'doc' = DocsLayout，可扩展） */
+  layout: string;
   /** 详情页是否显示侧边栏（作者信息 + 标签云） */
   sidebarIncluded: boolean;
   /** 是否出现在导航栏 */
