@@ -3,7 +3,7 @@
  * Mermaid 图表渲染组件
  *
  * 在文档中使用 ```mermaid 代码块即可自动渲染为图表。
- * 支持 ViewTransitions（astro:after-swap 时重新渲染）。
+ * 支持 ViewTransitions 和 图表/源码 切换。
  */
 ---
 
@@ -13,9 +13,6 @@
   let initialized = false;
 
   function renderMermaid() {
-    // Astro 的 Shiki 高亮会把 ```mermaid 渲染成：
-    //   <pre data-language="mermaid"><code><span class="line">...</span></code></pre>
-    // 我们需要提取纯文本并替换为 <div class="mermaid">
     const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
     if (!blocks.length) return;
 
@@ -31,41 +28,140 @@
       if (pre.dataset.mermaidProcessed) return;
       pre.dataset.mermaidProcessed = 'true';
 
-      // 提取纯文本（忽略 Shiki 的语法高亮 span）
       const rawText = pre.textContent ?? '';
 
-      const div = document.createElement('div');
-      div.className = 'mermaid';
-      div.textContent = rawText.trim();
-      pre.replaceWith(div);
+      // 容器
+      const container = document.createElement('div');
+      container.className = 'mermaid-container';
+
+      // 工具栏
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+
+      const label = document.createElement('span');
+      label.className = 'mermaid-label';
+      label.textContent = '📊 图表';
+      toolbar.appendChild(label);
+
+      const toggleBtn = document.createElement('button');
+      toggleBtn.className = 'mermaid-toggle';
+      toggleBtn.textContent = '查看源码';
+      toggleBtn.type = 'button';
+      toolbar.appendChild(toggleBtn);
+
+      container.appendChild(toolbar);
+
+      // 渲染区
+      const diagramDiv = document.createElement('div');
+      diagramDiv.className = 'mermaid';
+      diagramDiv.textContent = rawText.trim();
+      container.appendChild(diagramDiv);
+
+      // 源码区（初始隐藏）
+      const sourcePre = document.createElement('pre');
+      sourcePre.className = 'mermaid-source';
+      sourcePre.textContent = rawText.trim();
+      sourcePre.style.display = 'none';
+      container.appendChild(sourcePre);
+
+      // 替换
+      pre.replaceWith(container);
+
+      // 切换逻辑
+      toggleBtn.addEventListener('click', () => {
+        const showingDiagram = sourcePre.style.display === 'none';
+        diagramDiv.style.display = showingDiagram ? 'none' : '';
+        sourcePre.style.display = showingDiagram ? '' : 'none';
+        toggleBtn.textContent = showingDiagram ? '查看图表' : '查看源码';
+      });
     });
 
-    // 让 Mermaid 渲染新添加的 div.mermaid
-    const mermaidElements = document.querySelectorAll('div.mermaid');
+    // 渲染新添加的 div.mermaid
+    const mermaidElements = document.querySelectorAll('div.mermaid:not([data-rendered])');
     if (mermaidElements.length > 0) {
       try {
-        mermaid.run({ querySelector: 'div.mermaid' });
+        mermaid.run({ querySelector: 'div.mermaid:not([data-rendered])' });
+        mermaidElements.forEach((el) => el.setAttribute('data-rendered', 'true'));
       } catch {
         // 渲染失败时静默处理
       }
     }
   }
 
-  // DOM 就绪后渲染
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', renderMermaid);
   } else {
     renderMermaid();
   }
 
-  // ViewTransitions 页面切换后重新渲染
   document.addEventListener('astro:after-swap', renderMermaid);
 </script>
 
 <style>
-  /* Mermaid SVG 响应式适配 */
+  .mermaid-container {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--card-bg);
+  }
+
+  .mermaid-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+
+  .mermaid-label {
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .mermaid-toggle {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--card-bg);
+    color: var(--fg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mermaid-toggle:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* 图表区：让 SVG 居中并自适应宽度 */
+  div.mermaid {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
   div.mermaid svg {
     max-width: 100%;
     height: auto;
+  }
+
+  /* 源码区 */
+  .mermaid-source {
+    padding: 1rem 1.5rem;
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    background: var(--code-bg);
+    color: var(--fg);
+    overflow-x: auto;
+    white-space: pre;
+    border: none;
+    border-radius: 0;
   }
 </style>
