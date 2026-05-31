@@ -1,7 +1,7 @@
 <div align="center">
-    <img alt="Chestnut Astro" src="public/icon.png" width=120 height=120/>
+    <img alt="Maroon" src="public/icon.png" width=120 height=120/>
 
-# Chestnut-Astro
+# Maroon
 
 个人博客 + 文档站 — 基于 Astro 5 的静态站点
 
@@ -40,9 +40,9 @@ npm run preview    # 预览构建结果
 ## 项目结构
 
 ```
-chestnut-astro/
+maroon/
 ├── packages/
-│   └── chestnut-theme/        # astro-maroon — 独立主题包
+│   └── astro-maroon/        # 独立主题包
 │       ├── src/
 │       │   ├── components/    # UI 组件（Header, Footer, PostCard, Sidebar, PageNav, TOC...）
 │       │   ├── layouts/       # BaseLayout, PostLayout, DocsLayout

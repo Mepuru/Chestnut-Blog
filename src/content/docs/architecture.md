@@ -1,12 +1,12 @@
 ---
-title: "Chestnut-Astro 架构文档"
+title: "Maroon 架构文档"
 pubDate: 2026-05-16
 category: "Astro"
 ---
 
 ## 项目概述
 
-Chestnut-Astro 是一个基于 Astro 5 的静态个人博客，支持多主题切换（奶油/樱花/星空）、Markdown 内容管理、ViewTransitions 页面过渡动画。包含**博客**和**文档**两大内容板块，以及标签筛选、全文搜索等功能。
+Maroon 是一个基于 Astro 5 的静态个人博客，支持多主题切换（奶油/樱花/星空）、Markdown 内容管理、ViewTransitions 页面过渡动画。包含**博客**和**文档**两大内容板块，以及标签筛选、全文搜索等功能。
 
 - **技术栈**：Astro 5 + TypeScript + CSS Custom Properties
 - **Monorepo**：npm workspaces — 主应用 + `astro-maroon` 主题包

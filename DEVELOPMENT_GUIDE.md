@@ -1,6 +1,6 @@
 # 开发规范
 
-> Chestnut-Astro 项目开发约定与最佳实践
+> Maroon 项目开发约定与最佳实践
 
 ---
 
@@ -76,7 +76,7 @@ import 'astro-maroon/styles/layout.css';
 
 ### 变量驱动
 
-优先使用 CSS 自定义属性（`var(--xxx)`），**禁止**在组件样式中硬编码颜色、尺寸、圆角值。所有主题色在 `packages/chestnut-theme/src/styles/base.css` 的 `[data-theme="xxx"]` 中定义。
+优先使用 CSS 自定义属性（`var(--xxx)`），**禁止**在组件样式中硬编码颜色、尺寸、圆角值。所有主题色在 `packages/astro-maroon/src/styles/base.css` 的 `[data-theme="xxx"]` 中定义。
 
 ```css
 /* ✅ 正确 */
@@ -130,7 +130,7 @@ transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1),
 - **严格模式** — `tsconfig.json` 继承 `astro/tsconfigs/strict`
 - **Props 接口** — 尽量先用 `interface` 而非 `type`，仅在需要联合/交叉时用 `type`
 - **避免 `any`** — 优先 `unknown` + 类型收窄
-- **公共类型** — 放在 `packages/chestnut-theme/src/types/` 中，通过 `astro-maroon/types` 导入
+- **公共类型** — 放在 `packages/astro-maroon/src/types/` 中，通过 `astro-maroon/types` 导入
 - **组件 Props** — 定义在组件内或从主题包导入：
 
 ```astro
@@ -298,9 +298,9 @@ Layout 读取优先级：`props → Astro.locals.site → 硬编码兜底`
 ## 项目结构
 
 ```
-chestnut-astro/
+maroon/
 ├── packages/
-│   └── chestnut-theme/        # astro-maroon — 独立主题包
+│   └── astro-maroon/        # 独立主题包
 │       ├── src/
 │       │   ├── components/     # UI 组件
 │       │   │   ├── blog/       #   PostCard
@@ -460,8 +460,8 @@ Astro.locals.site = {
 
 改主题包的两个文件：
 
-1. `packages/chestnut-theme/src/utils/themes.ts` 加 `{ id, name }`
-2. `packages/chestnut-theme/src/styles/base.css` 加 `[data-theme="xxx"]` 变量块
+1. `packages/astro-maroon/src/utils/themes.ts` 加 `{ id, name }`
+2. `packages/astro-maroon/src/styles/base.css` 加 `[data-theme="xxx"]` 变量块
 
 必须覆盖的 CSS 变量：
 `--bg`, `--fg`, `--accent`, `--accent-light`, `--border`, `--muted`, `--card-bg`, `--code-bg`, `--header-bg`, `--search-bg`, `--shadow-*`, `--gradient-*`, `--theme-label`, `--radius-*`
