@@ -19,7 +19,9 @@ export default defineConfig({
         codeFontSize: '0.875rem',
         codeFontFamily: "'JetBrains Mono Variable', 'Cascadia Code', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
       },
-      frames: false,
+      frames: {
+        showCopyToClipboardButton: true,
+      },
     }),
   ],
   markdown: {
