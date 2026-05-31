@@ -1,0 +1,288 @@
+[data-theme="sakura"] {
+  --bg: #fef8fa;
+  --bg-secondary: #fff0f5;
+  --fg: #4a3848;
+  --accent: #d06090;
+  --accent-hover: #c05080;
+  --accent-light: rgba(208, 96, 144, 0.10);
+  --accent-glow: rgba(208, 96, 144, 0.08);
+  --border: #f0d8e4;
+  --muted: #a898a4;
+  --card-bg: #ffffff;
+  --code-bg: #2d2030;
+  --header-bg: rgba(254, 248, 250, 0.9);
+  --search-bg: #ffffff;
+  --shadow-sm: 0 2px 8px rgba(208, 96, 144, 0.06);
+  --shadow-md: 0 4px 20px rgba(208, 96, 144, 0.10);
+  --gradient-1: rgba(208, 96, 144, 0.10);
+  --gradient-2: rgba(160, 120, 200, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --theme-label: #d06090;
+}
+
+[data-theme="starry"] {
+  --bg: #1a1a2e;
+  --bg-secondary: #16213e;
+  --fg: #e0e0e8;
+  --accent: #7b8cde;
+  --accent-hover: #6a7bc8;
+  --accent-light: rgba(123, 140, 222, 0.15);
+  --accent-glow: rgba(123, 140, 222, 0.10);
+  --border: #2a2a4a;
+  --muted: #8888a8;
+  --card-bg: #222244;
+  --code-bg: #0d0d1a;
+  --header-bg: rgba(26, 26, 46, 0.9);
+  --search-bg: #222244;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --gradient-1: rgba(123, 140, 222, 0.12);
+  --gradient-2: rgba(100, 200, 180, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --theme-label: #7986cb;
+}
+
+[data-theme="cream"] {
+  --bg: #FBF9F6;
+  --bg-secondary: #F5F2EE;
+  --fg: #3A3632;
+  --accent: #A0896C;
+  --accent-hover: #8B7558;
+  --accent-light: rgba(160, 137, 108, 0.1);
+  --accent-glow: rgba(160, 137, 108, 0.05);
+  --border: #EDE8E0;
+  --muted: #B0A89C;
+  --card-bg: #FFFFFF;
+  --code-bg: #2C2825;
+  --header-bg: rgba(251, 249, 246, 0.9);
+  --search-bg: #FFFFFF;
+  --shadow-sm: 0 2px 8px rgba(58, 54, 50, 0.04);
+  --shadow-md: 0 4px 20px rgba(58, 54, 50, 0.08);
+  --gradient-1: rgba(160, 137, 108, 0.06);
+  --gradient-2: rgba(160, 137, 108, 0.04);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --theme-label: #A0896C;
+}
+
+/* ============================================
+    响应式断点变量
+    ============================================ */
+
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* ============================================
+   布局尺寸变量
+   ============================================ */
+
+:root {
+  --header-height: 64px;
+  --sidebar-width: 260px;
+  --toc-width: 200px;
+}
+
+/* ============================================
+   响应式字体变量
+   ============================================ */
+
+:root {
+  /* 手机端字体 */
+  --font-size-hero-title: 1.75rem;
+  --font-size-card-title: 1.25rem;
+  --font-size-card-desc: 0.95rem;
+  --font-size-stats: 1.5rem;
+  --font-size-text: 0.9rem;
+  
+  /* 博客卡片字体 */
+  --font-size-post-title: 1rem;
+  --font-size-post-desc: 0.82rem;
+  --font-size-post-meta: 0.8rem;
+  --font-size-tag: 0.72rem;
+  
+  /* 侧边栏字体 */
+  --font-size-sidebar-title: 0.85rem;
+  --font-size-sidebar-text: 0.8rem;
+  --font-size-sidebar-label: 0.72rem;
+  
+  /* 文章内容字体 */
+  --font-size-article-title: 1.65rem;
+  --font-size-article-meta: 0.85rem;
+}
+
+@media (min-width: 769px) {
+  :root {
+    /* 电脑端字体 */
+    --font-size-hero-title: 2.5rem;
+    --font-size-card-title: 1.75rem;
+    --font-size-card-desc: 1.05rem;
+    --font-size-stats: 2.5rem;
+    --font-size-text: 1rem;
+    
+    /* 博客卡片字体 */
+    --font-size-post-title: 1.15rem;
+    --font-size-post-desc: 0.92rem;
+    --font-size-post-meta: 0.85rem;
+    --font-size-tag: 0.8rem;
+    
+    /* 侧边栏字体 */
+    --font-size-sidebar-title: 0.95rem;
+    --font-size-sidebar-text: 0.9rem;
+    --font-size-sidebar-label: 0.8rem;
+    
+    /* 文章内容字体 */
+    --font-size-article-title: 2rem;
+    --font-size-article-meta: 0.9rem;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--accent-light);
+  color: var(--fg);
+}
+
+html {
+  font-family: 'Hiragino Sans', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.8;
+  scroll-behavior: smooth;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(135deg, var(--gradient-1) 0%, transparent 40%),
+    linear-gradient(315deg, var(--gradient-2) 0%, transparent 40%),
+    linear-gradient(to bottom right, var(--bg) 0%, var(--bg-secondary) 100%);
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Layout */
+.layout-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.layout-wrapper.wide {
+  grid-template-columns: 1fr;
+}
+
+.main-content {
+  min-width: 0;
+}
+
+/* Page title */
+.page-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .layout-wrapper {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .header-inner {
+    padding: 0 1rem;
+  }
+
+  nav {
+    gap: 0.75rem;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
