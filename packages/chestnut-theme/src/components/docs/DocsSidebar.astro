@@ -14,9 +14,11 @@ interface Props {
   categories: DocCategory[];
   totalCount: number;
   uncategorized?: DocNavItem[];
+  /** 文档 URL 前缀，默认 /docs */
+  docUrlPrefix?: string;
 }
 
-const { currentSlug, categories, totalCount, uncategorized = [] } = Astro.props;
+const { currentSlug, categories, totalCount, uncategorized = [], docUrlPrefix = '/docs' } = Astro.props;
 ---
 
 <aside class="docs-sidebar" id="docs-sidebar">
@@ -35,7 +37,7 @@ const { currentSlug, categories, totalCount, uncategorized = [] } = Astro.props;
         <div class="category-items">
           {cat.docs.map((doc) => (
             <a
-              href={`/docs/${doc.slug}`}
+              href={`${docUrlPrefix}/${doc.slug}`}
               class:list={['sidebar-link', { active: currentSlug === doc.slug }]}
               title={doc.title}
             >
@@ -55,7 +57,7 @@ const { currentSlug, categories, totalCount, uncategorized = [] } = Astro.props;
         <div class="category-items">
           {uncategorized.map((doc) => (
             <a
-              href={`/docs/${doc.slug}`}
+              href={`${docUrlPrefix}/${doc.slug}`}
               class:list={['sidebar-link', { active: currentSlug === doc.slug }]}
               title={doc.title}
             >
@@ -69,7 +71,7 @@ const { currentSlug, categories, totalCount, uncategorized = [] } = Astro.props;
     {uncategorized.length > 0 && categories.length === 0 && (
       uncategorized.map((doc) => (
         <a
-          href={`/docs/${doc.slug}`}
+          href={`${docUrlPrefix}/${doc.slug}`}
           class:list={['sidebar-link', { active: currentSlug === doc.slug }]}
           title={doc.title}
         >

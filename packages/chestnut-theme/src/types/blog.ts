@@ -9,6 +9,8 @@ export interface PostCardProps {
   pubDate: Date;
   slug: string;
   tags?: string[];
+  /** 自定义文章 URL，不传则默认 /blog/{slug} */
+  itemUrl?: string;
 }
 
 export interface PostData {

@@ -4,7 +4,7 @@ import { formatDate } from '../../utils/date';
 
 type Props = PostCardProps;
 
-const { title, description, pubDate, slug, tags = [] } = Astro.props;
+const { title, description, pubDate, slug, tags = [], itemUrl } = Astro.props;
 
 const dateStr = formatDate(pubDate);
 ---
@@ -24,7 +24,7 @@ const dateStr = formatDate(pubDate);
       )}
     </div>
     <h3 class="post-card-title">
-      <a href={`/blog/${slug}`}>{title}</a>
+      <a href={itemUrl ?? `/blog/${slug}`}>{title}</a>
     </h3>
     <p class="post-card-desc">{description}</p>
   </div>

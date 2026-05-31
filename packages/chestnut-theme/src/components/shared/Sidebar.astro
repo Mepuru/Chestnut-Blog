@@ -12,9 +12,11 @@ interface Props {
   tags: SidebarTag[];
   tagCount: number;
   githubUrl?: string;
+  /** 标签 URL 前缀，默认 /tags */
+  tagUrlPrefix?: string;
 }
 
-const { avatar, author, bio, postsCount, tags, tagCount, githubUrl } = Astro.props;
+const { avatar, author, bio, postsCount, tags, tagCount, githubUrl, tagUrlPrefix = '/tags' } = Astro.props;
 ---
 
 <style>
@@ -43,7 +45,7 @@ const { avatar, author, bio, postsCount, tags, tagCount, githubUrl } = Astro.pro
       <h4 class="sidebar-title">标签</h4>
       <div class="tag-cloud">
         {tags.map((tag) => (
-          <a href={`/tags/${encodeURIComponent(tag.name)}`} class="tag-item">
+          <a href={`${tagUrlPrefix}/${encodeURIComponent(tag.name)}`} class="tag-item">
             {tag.name}
             <span class="tag-count">{tag.count}</span>
           </a>
