@@ -24,6 +24,7 @@ export const routes = {
   },
   about: '/about',
   home: '/',
+  icon: '/icon.png',
 } as const;
 
 export type RouteKey = keyof typeof routes;

@@ -6,6 +6,8 @@ interface Props {
 }
 
 const { avatar, author, bio } = Astro.props;
+const routes = Astro.locals.site?.routes;
+const aboutUrl = routes?.about ?? '/about';
 ---
 
 <section class="hero">
@@ -16,7 +18,7 @@ const { avatar, author, bio } = Astro.props;
     <div class="hero-text">
       <h1 class="hero-title">Hi, 我是{author}</h1>
       <p class="hero-subtitle">{bio}</p>
-      <a href="/about" class="hero-link">了解更多 →</a>
+      <a href={aboutUrl} class="hero-link">了解更多 →</a>
     </div>
   </div>
 </section>

@@ -6,6 +6,9 @@ type Props = PostCardProps;
 
 const { title, description, pubDate, slug, tags = [], itemUrl } = Astro.props;
 
+const routes = Astro.locals.site?.routes;
+const blogPrefix = routes?.blog?.prefix ?? '/blog';
+
 const dateStr = formatDate(pubDate);
 ---
 
@@ -24,7 +27,7 @@ const dateStr = formatDate(pubDate);
       )}
     </div>
     <h3 class="post-card-title">
-      <a href={itemUrl ?? `/blog/${slug}`}>{title}</a>
+      <a href={itemUrl ?? `${blogPrefix}/${slug}`}>{title}</a>
     </h3>
     <p class="post-card-desc">{description}</p>
   </div>

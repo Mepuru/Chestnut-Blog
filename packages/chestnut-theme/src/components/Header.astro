@@ -17,6 +17,8 @@ interface Props {
 
 const { siteTitle, nav, themes } = Astro.props;
 const currentPath = Astro.url.pathname;
+const routes = Astro.locals.site?.routes;
+const homeUrl = routes?.home ?? '/';
 
 function isActive(href: string) {
   if (href === '/') return currentPath === '/';
@@ -30,7 +32,7 @@ function isActive(href: string) {
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="site-title">{siteTitle}</a>
+    <a href={homeUrl} class="site-title">{siteTitle}</a>
     
     <nav class="nav-links">
       {nav.map((item) => (

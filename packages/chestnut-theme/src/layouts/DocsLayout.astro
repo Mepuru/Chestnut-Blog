@@ -54,6 +54,9 @@ const {
 // 截断过长的标题
 const truncateTitle = (s: string, max = 24) => s.length > max ? s.slice(0, max) + '…' : s;
 
+const routes = Astro.locals.site?.routes;
+const docsPrefix = routes?.docs?.prefix ?? '/docs';
+
 const dateStr = pubDate ? formatDate(pubDate) : '';
 const hasDoc = !!currentSlug;
 const emptyText = emptyTexts[Math.floor(Math.random() * emptyTexts.length)];
@@ -69,6 +72,7 @@ const emptyText = emptyTexts[Math.floor(Math.random() * emptyTexts.length)];
       categories={categories}
       totalCount={totalCount}
       uncategorized={uncategorized}
+      docUrlPrefix={docsPrefix}
     />
 
     <main class="docs-main">
@@ -86,13 +90,13 @@ const emptyText = emptyTexts[Math.floor(Math.random() * emptyTexts.length)];
           {(prev || next) && (
             <nav class="doc-nav">
               {prev ? (
-                <a href={`/docs/${prev.slug}`} class="doc-nav-link">
+                <a href={`${docsPrefix}/${prev.slug}`} class="doc-nav-link">
                   <span class="doc-nav-label">&larr; 上一篇</span>
                   <span class="doc-nav-title">{truncateTitle(prev.title)}</span>
                 </a>
               ) : <span />}
               {next ? (
-                <a href={`/docs/${next.slug}`} class="doc-nav-link doc-nav-next">
+                <a href={`${docsPrefix}/${next.slug}`} class="doc-nav-link doc-nav-next">
                   <span class="doc-nav-label">下一篇 &rarr;</span>
                   <span class="doc-nav-title">{truncateTitle(next.title)}</span>
                 </a>

@@ -5,6 +5,7 @@ export const siteConfig: SiteConfig = {
   description: '记录生活与技术的个人博客',
   author: '栗かな',
   avatar: '/icon.png',
+  icon: '/icon.png',
   bio: '日语专业 / 技术探索中',
   nav: [
     { href: '/', label: '首页' },

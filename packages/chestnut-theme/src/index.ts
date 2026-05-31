@@ -3,6 +3,7 @@ export type {
   SiteConfig,
   ThemeConfig,
   NavItem,
+  RoutesConfig,
 } from './types/site';
 export type {
   SeriesConfig,

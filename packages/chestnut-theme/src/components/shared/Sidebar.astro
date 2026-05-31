@@ -16,7 +16,11 @@ interface Props {
   tagUrlPrefix?: string;
 }
 
-const { avatar, author, bio, postsCount, tags, tagCount, githubUrl, tagUrlPrefix = '/tags' } = Astro.props;
+const { avatar, author, bio, postsCount, tags, tagCount, githubUrl, tagUrlPrefix } = Astro.props;
+
+const routes = Astro.locals.site?.routes;
+const resolvedTagPrefix = tagUrlPrefix ?? routes?.tags?.prefix ?? '/tags';
+const aboutUrl = routes?.about ?? '/about';
 ---
 
 <style>
@@ -45,7 +49,7 @@ const { avatar, author, bio, postsCount, tags, tagCount, githubUrl, tagUrlPrefix
       <h4 class="sidebar-title">标签</h4>
       <div class="tag-cloud">
         {tags.map((tag) => (
-          <a href={`${tagUrlPrefix}/${encodeURIComponent(tag.name)}`} class="tag-item">
+          <a href={`${resolvedTagPrefix}/${encodeURIComponent(tag.name)}`} class="tag-item">
             {tag.name}
             <span class="tag-count">{tag.count}</span>
           </a>
@@ -62,7 +66,7 @@ const { avatar, author, bio, postsCount, tags, tagCount, githubUrl, tagUrlPrefix
           GitHub
         </a>
       )}
-      <a href="/about" class="link-item">
+      <a href={aboutUrl} class="link-item">
         关于我
       </a>
     </div>
