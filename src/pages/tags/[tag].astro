@@ -24,7 +24,7 @@ const posts = publishedPosts.filter((p) => p.data.tags.includes(tag));
 // 构造侧边栏数据
 const ctx = Astro.locals.site;
 const sidebarData = buildSidebarData(
-  { avatar: ctx?.avatar ?? '', author: ctx?.author ?? '', bio: ctx?.bio ?? '', social: { github: ctx?.social?.github } },
+  { avatar: ctx?.avatar ?? '/icon.png', author: ctx?.author ?? '', bio: ctx?.bio ?? '', social: { github: ctx?.social?.github } },
   publishedPosts,
 );
 ---
