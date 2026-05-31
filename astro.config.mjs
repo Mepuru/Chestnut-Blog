@@ -14,6 +14,14 @@ export default defineConfig({
         wrap: true,
       },
       styleOverrides: {
+        frames: {
+          editorBackground: 'var(--code-bg)',
+          terminalBackground: 'var(--code-bg)',
+          terminalTitlebarBackground: 'var(--code-bg)',
+          editorTabBarBackground: 'var(--code-bg)',
+          editorTabBarBorderBottomColor: 'transparent',
+          terminalTitlebarBorderBottomColor: 'transparent',
+        },
         borderRadius: '12px',
         borderColor: 'var(--border)',
         codeFontSize: '0.875rem',
