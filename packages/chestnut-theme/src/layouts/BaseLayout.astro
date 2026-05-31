@@ -47,7 +47,7 @@ interface Props {
   };
 }
 
-// 优先从 Astro.locals.site 读取全局配置（middleware 注入），props 优先级更高
+// 优先级: props → Astro.locals.site（middleware 注入）→ 硬编码兜底
 const ctx = Astro.locals.site;
 
 const siteTitle = Astro.props.siteTitle ?? ctx?.title ?? '';
