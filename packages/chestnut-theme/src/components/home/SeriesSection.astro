@@ -1,0 +1,22 @@
+---
+// 系列展示区容器组件
+interface Props {
+  title?: string;
+}
+
+const { title = '我的系列' } = Astro.props;
+---
+
+<section class="series-section">
+  <div class="section-header">
+    <h2 class="section-title">{title}</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="series-list">
+    <slot />
+  </div>
+</section>
+
+<style>
+  @import './SeriesSection.css';
+</style>

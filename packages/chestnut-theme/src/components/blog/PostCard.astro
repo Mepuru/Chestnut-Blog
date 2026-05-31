@@ -1,0 +1,31 @@
+---
+import type { PostCardProps } from '../../types';
+import { formatDate } from '../../utils/date';
+
+type Props = PostCardProps;
+
+const { title, description, pubDate, slug, tags = [] } = Astro.props;
+
+const dateStr = formatDate(pubDate);
+---
+
+<style>
+  @import './PostCard.css';
+</style>
+
+<article class="post-card">
+  <div class="post-card-body">
+    <div class="post-card-meta">
+      <time>{dateStr}</time>
+      {tags.length > 0 && (
+        <div class="tags">
+          {tags.slice(0, 2).map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </div>
+    <h3 class="post-card-title">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </h3>
+    <p class="post-card-desc">{description}</p>
+  </div>
+</article>
