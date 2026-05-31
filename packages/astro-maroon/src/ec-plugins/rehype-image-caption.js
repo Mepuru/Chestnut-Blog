@@ -1,12 +1,14 @@
 /**
  * rehype-image-caption
  *
- * 将 Markdown 中带 title 的图片 `![alt](src "caption")`
- * 渲染为 <figure><img ...><figcaption>caption</figcaption></figure>
+ * 将 Markdown 图片 `![caption](src)` 渲染为
+ * <figure><img ...><figcaption>caption</figcaption></figure>
  *
  * 用法：
- *   ![风景](photo.jpg "夕阳下的海岸")
- *   → <figure><img src="photo.jpg" alt="风景"><figcaption>夕阳下的海岸</figcaption></figure>
+ *   ![夕阳下的海岸](photo.jpg)
+ *   → <figure><img src="photo.jpg" alt="夕阳下的海岸"><figcaption>夕阳下的海岸</figcaption></figure>
+ *
+ * 如果不需要题注，则保持普通 <img> 不变：![](src) 或 ![alt](src) 无额外处理。
  */
 
 import { visit } from 'unist-util-visit';
@@ -24,9 +26,10 @@ export function rehypeImageCaption() {
       }
 
       const props = node.properties;
-      const title = props.title;
+      const alt = props.alt;
 
-      if (!title || typeof title !== 'string' || !title.trim()) {
+      // 只有 alt 不为空时才生成题注
+      if (!alt || typeof alt !== 'string' || !alt.trim()) {
         return;
       }
 
@@ -34,7 +37,7 @@ export function rehypeImageCaption() {
         type: 'element',
         tagName: 'figcaption',
         properties: {},
-        children: [{ type: 'text', value: title.trim() }],
+        children: [{ type: 'text', value: alt.trim() }],
       };
 
       const figure = {
@@ -45,7 +48,7 @@ export function rehypeImageCaption() {
           {
             type: 'element',
             tagName: 'img',
-            properties: { ...props, title: undefined },
+            properties: { ...props },
             children: [],
           },
           figCaption,
