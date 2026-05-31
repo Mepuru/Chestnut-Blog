@@ -4,36 +4,33 @@
  * 将 Markdown 图片 `![caption](src)` 渲染为
  * <figure><img ...><figcaption>caption</figcaption></figure>
  *
- * 用法：
- *   ![夕阳下的海岸](photo.jpg)
- *   → <figure><img src="photo.jpg" alt="夕阳下的海岸"><figcaption>夕阳下的海岸</figcaption></figure>
- *
- * 如果不需要题注，则保持普通 <img> 不变：![](src) 或 ![alt](src) 无额外处理。
+ * 如果图片在 <p> 内，会连带 <p> 一起替换。
+ * 空 alt 不生成题注。
  */
 
 import { visit } from 'unist-util-visit';
 
 export function rehypeImageCaption() {
   return (tree) => {
+    const toRemove = [];
+
     visit(tree, 'element', (node, index, parent) => {
       if (
         node.tagName !== 'img' ||
         !node.properties ||
         !parent ||
-        typeof index !== 'number'
+        index === undefined ||
+        index === null
       ) {
         return;
       }
 
-      const props = node.properties;
-      const alt = props.alt;
-
-      // 只有 alt 不为空时才生成题注
+      const alt = node.properties.alt;
       if (!alt || typeof alt !== 'string' || !alt.trim()) {
         return;
       }
 
-      const figCaption = {
+      const figcaption = {
         type: 'element',
         tagName: 'figcaption',
         properties: {},
@@ -48,14 +45,28 @@ export function rehypeImageCaption() {
           {
             type: 'element',
             tagName: 'img',
-            properties: { ...props },
-            children: [],
+            properties: { ...node.properties },
           },
-          figCaption,
+          figcaption,
         ],
       };
 
-      parent.children.splice(index, 1, figure);
+      // 如果 <img> 在 <p> 里，标记 <p> 将被替换
+      if (parent.tagName === 'p') {
+        toRemove.push({ parent, index, replacement: figure });
+      } else {
+        parent.children.splice(index, 1, figure);
+      }
     });
+
+    // 处理 <p> 内的图片：替换整个 <p> 为 <figure>
+    for (const { parent, index, replacement } of toRemove) {
+      // 找到 <p> 的父节点
+      visit(tree, 'element', (grand, gi, gp) => {
+        if (grand === parent && gp && gi !== undefined) {
+          gp.children.splice(gi, 1, replacement);
+        }
+      });
+    }
   };
 }
